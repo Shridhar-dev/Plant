@@ -70,7 +70,7 @@ function ProductsSection() {
         </div>
         
         <h3 className='text-2xl font-bold mt-10'>Plants For You!</h3>
-        <div className='grid grid-flow-row grid-cols-2 lg:grid-cols-4 gap-6 mt-5'>
+        <div className='grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-5'>
             {
                 productItems.map((product,i)=>(
                     <ProductCard key={product.id} id={product.id} name={product.name} image={product.image} excerpt={product.excerpt} rating={product.rating} price={product.price} />

@@ -40,7 +40,7 @@ function Footer() {
         <div className='col-span-2'>
           <p className='text-white text-xl font-semibold'>Get the latest news & offers</p>
           <div className='mt-5 text-black'>
-            <Input placeholder='Email Address' className='rounded-none h-full'/>
+            <Input placeholder='Email Address' className='rounded-none h-full px-3'/>
             <button className='mt-2 bg-white w-full py-3 text-sm'>Subscribe</button>
           </div>
           <p className='text-white text-xl font-semibold mt-5'>Join us - get social!</p>

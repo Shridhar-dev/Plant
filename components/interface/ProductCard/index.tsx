@@ -23,11 +23,13 @@ function ProductCard({name, image, excerpt, price, rating, id}: ProductCardProps
   const addCartItems = () => {
     let item = {
       name,
-      price,
-      desc: excerpt,
+      totalPrice:price,
+      price: price,
+      quantity:1,
+      excerpt: excerpt,
       image,
       rating,
-      id:1,
+      id
     }
     addItemToCart(item)
  

@@ -14,13 +14,8 @@ interface CartItem {
 }
 
 function CartItem({ name, excerpt, price, image, id }: CartItem){
-    const { cartItems, setCartItems }:{cartItems:ServerContextJSONValue[], setCartItems:any} = useContext(SiteConfig);
-    
-    const removeItem = (id:number) => {
-        let items = [...cartItems];
-        items.splice(id, 1)
-        setCartItems(items)
-    }
+    const { cartItems,  removeCartItem }:{cartItems:ServerContextJSONValue[], removeCartItem:any} = useContext(SiteConfig);
+
 
     return(
         <div className='border rounded-md flex gap-3 items-start p-3 mt-5'>
@@ -36,7 +31,7 @@ function CartItem({ name, excerpt, price, image, id }: CartItem){
                         <div className='flex items-center justify-between font-semibold text-lg whitespace-nowrap'>
                             <p className='whitespace-nowrap'>{name}</p>
                             <button>
-                                <X size={18} onClick={()=>removeItem(id)}/>
+                                <X size={18} onClick={()=>removeCartItem(id)}/>
                             </button>
                         </div>
                         <p className='text-sm font-medium text-gray-600 line-clamp-1 mr-10 whitespace-nowrap'>{excerpt}</p>

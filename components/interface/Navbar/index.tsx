@@ -3,22 +3,31 @@
 import React, { useContext, useState, useEffect, ChangeEvent } from 'react'
 import {
     NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
-    NavigationMenuViewport,
-  } from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu"
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+  
 import { Input } from "@/components/ui/input"
 
 import Link from 'next/link'
-import { Search, ShoppingCart } from 'lucide-react'
+import { Plus, LogOut, Search, ShoppingCart, ShoppingBasketIcon } from "lucide-react"
 import CartSideBar from '../CartSideBar'
 import { SiteConfig } from '@/app/layout'
-import CartItem, { SearchCartItem } from '../CartItem'
+import { SearchCartItem } from '../CartItem'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { getSession } from 'next-auth/react'
+import { login, logout } from '@/lib/authAction'
+
 
 interface CartItemProps {
   name: string,
@@ -31,10 +40,12 @@ interface CartItemProps {
 function Navbar({isFixed=false}:{isFixed?:boolean}) {
   const { cartItems }:any = useContext(SiteConfig);
   const [bgColor, setbgColor] = useState("transparent");
+  const [profile, setProfile] = useState<any>({email:"", image:"", name:""});
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [searchItems, setSearchItems] = useState([])
-  
+
   useEffect(() => {
+    
     window.addEventListener("scroll", () => {
       if(window.scrollY > 50){
         setbgColor("white")
@@ -44,6 +55,7 @@ function Navbar({isFixed=false}:{isFixed?:boolean}) {
       }
     })
 
+    getProfile()
     return () => {
       window.removeEventListener("scroll", ()=>{})
     }
@@ -51,7 +63,6 @@ function Navbar({isFixed=false}:{isFixed?:boolean}) {
   
   const getSearchItems = async(e:ChangeEvent<HTMLInputElement>) => {
     if(e.target.value !== ""){
-      console.log("E: ", e.target.value)
       let products = await fetch(`/api/products?name=${e.target.value}`);
       let objProducts = await products.json();
       if(e.target.value !== "") setSearchItems(objProducts.products)
@@ -60,6 +71,12 @@ function Navbar({isFixed=false}:{isFixed?:boolean}) {
       setSearchItems([])
     }
   }
+
+  const getProfile = async() => {
+    const session = await getSession();
+    setProfile(session?.user)
+  }
+  
 
   return (
     <>
@@ -83,7 +100,7 @@ function Navbar({isFixed=false}:{isFixed?:boolean}) {
                       What's New
                     </NavigationMenuItem>
                     <NavigationMenuItem className='relative'>
-                      <Input onChange={getSearchItems} placeholder={`Search`} logo={<Search className='text-gray-500' size={20}/>}/>
+                      <Input className='px-3' onChange={getSearchItems} placeholder={`Search`} logo={<Search className='text-gray-500' size={20}/>}/>
                       {
                         searchItems.length > 0 &&
                         <div className='absolute min-w-[320px] border rounded-md shadow-xs pl-1.5 pr-5 mt-3 right-0 bg-white'>
@@ -99,14 +116,43 @@ function Navbar({isFixed=false}:{isFixed?:boolean}) {
                       <div className='bg-black flex items-center justify-center absolute -right-2 -top-3 h-4 w-4 rounded-full text-white text-[0.6rem]'>{cartItems.length}</div>
                       <ShoppingCart size={20} onClick={()=>setIsCartOpen(true)}/>
                     </NavigationMenuItem>
-                    <Link href="/login">
-                      <NavigationMenuItem className='cursor-pointer relative'>
-                        <Avatar>
-                          <AvatarImage src="https://github.com/shadcn.png" sizes='h-10 w-10'/>
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                      </NavigationMenuItem>
-                    </Link>
+                    <NavigationMenuItem className='cursor-pointer relative'>
+                      <DropdownMenu>  
+                          <DropdownMenuTrigger>
+                            <Avatar>
+                              <AvatarImage src={profile?.image || "https://github.com/shadcn.png"} sizes='h-10 w-10'/>
+                              <AvatarFallback>{profile?.name || "CN"}</AvatarFallback>
+                            </Avatar>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
+                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            {
+                              profile?.email &&
+                              <Link href="/sell">
+                                <DropdownMenuItem>
+                                  <ShoppingCart className="mr-2 h-4 w-4"/>
+                                  <span>Sell your plant</span>
+                                </DropdownMenuItem>
+                              </Link>
+                            }
+                            {
+                              profile?.email ?
+                              <DropdownMenuItem onClick={()=>logout()}>
+                                <LogOut className="mr-2 h-4 w-4" />
+                                <span>Log out</span>
+                              </DropdownMenuItem> :
+                              <Link href="/login">
+                                <DropdownMenuItem>
+                                  <LogOut className="mr-2 h-4 w-4" />
+                                  <span>Log in</span>
+                                </DropdownMenuItem>
+                              </Link>
+                            }
+                          </DropdownMenuContent>
+                        
+                      </DropdownMenu>
+                    </NavigationMenuItem>
                   </NavigationMenuList>
                 </NavigationMenu>
             </NavigationMenuList>

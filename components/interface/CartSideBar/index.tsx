@@ -14,7 +14,7 @@ interface CartSideBarProps {
 interface CartItemProps {
     name: string,
     excerpt: string,
-    price: number,
+    totalPrice: number,
     image:string,
     id: number
 }
@@ -35,7 +35,7 @@ function CartSideBar({ isCartOpen, setIsCartOpen }: CartSideBarProps) {
                 {
                     cartItems.length > 0 &&
                     cartItems.map((item:CartItemProps, i: number)=>(
-                        <CartItem key={i} id={i} name={item.name} excerpt={item.excerpt} price={item.price} image={item.image} />
+                        <CartItem key={i} id={i} name={item.name} excerpt={item.excerpt} price={item.totalPrice} image={item.image} />
                     ))
                 }   
                 <div className='flex-1 flex items-end self-start justify-self-end h-auto'><Link href="/cart">Proceed to checkout {'->'}</Link> </div>       

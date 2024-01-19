@@ -8,10 +8,12 @@ import ProductsSection from '@/components/sections/ProductsSection'
 import Footer from '@/components/interface/Footer'
 import HeaderImage from "@/assets/header.jpg"
 
+
 export default function Home() {
+
   return (
     <div>
-      <main className="min-h-screen">
+      <main className="min-h-screen relative">
       <header className={'w-screen relative overflow-hidden h-[75vh]'}>
             <Image 
               src={HeaderImage.src}
@@ -21,7 +23,7 @@ export default function Home() {
               className="w-screen h-screen sm:h-auto"
               alt={"Header Image showcasing gadgets"}
             />
-            <Navbar isFixed/>
+            <Navbar isFixed />
           </header>
         <section className='flex flex-wrap items-center text-black -mt-[100%] md:mt-0 sm:absolute  sm:bottom-20 lg:bottom-10 leading-none w-screen px-10 sm:px-20 relative z-30'>
             <div className='w-full lg:w-[50%]'>

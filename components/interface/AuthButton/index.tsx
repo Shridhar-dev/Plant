@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button"
-import { signIn, signOut } from "../../../auth"
-import { AuthError } from "next-auth"
+import { signIn, signOut } from "../../../lib/auth"
+
 
 function AuthButton({type, style, children}: {type: "login"|"logout", style:string, children:string}) {
   

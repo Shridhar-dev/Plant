@@ -1,4 +1,4 @@
-import * as schema from "../lib/schemas/users";
+import * as schema from "./schemas";
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 let queryClient;

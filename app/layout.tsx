@@ -31,10 +31,21 @@ export default function RootLayout({
     setCartItems([...uniqueItems, newItem])
   }
 
+  const removeCartItem = (id:number) => {
+    let items = [...cartItems];
+    items.splice(id, 1)
+    setCartItems(items)
+  }
+
+  const changeQuantity = (id:number, quantity:number) => {
+    let items = [...cartItems];
+    items[id].quantity = quantity
+    setCartItems(items)
+  }
 
   return (
-      <SessionProvider>
-        <SiteConfig.Provider value={{cartItems,setCartItems, addItemToCart}}>
+      
+        <SiteConfig.Provider value={{cartItems, removeCartItem, addItemToCart, changeQuantity}}>
           <html lang="en">
             <body className={inter.className}>
               <Toaster />
@@ -42,7 +53,7 @@ export default function RootLayout({
             </body>
           </html>
         </SiteConfig.Provider>
-      </SessionProvider>
+      
   )
 }
 

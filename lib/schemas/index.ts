@@ -4,7 +4,9 @@ import {
     text,
     primaryKey,
     integer,
-    serial
+    serial,
+    varchar,
+    decimal
   } from "drizzle-orm/pg-core"
   import type { AdapterAccount } from '@auth/core/adapters'
   
@@ -59,11 +61,26 @@ import {
   )
 
   export const products = pgTable('products', {
-    id: serial('id').notNull(),
-    name: text('name'),
-    image: text('image'),
-    description: text('description'),
-    excerpt: text('excerpt'),
+    id: serial('id').primaryKey().notNull(),
+    name: varchar('name').notNull(),
+    image: varchar('image'),
+    description: varchar('description'),
+    excerpt: varchar('excerpt'),
+    userId:text('userid').notNull(),
     price: integer("price").notNull(),
-    rating:integer("rating")
+    rating:decimal("rating"),
+    category: varchar('category')
+  });
+  
+  export const productImages = pgTable('productimages', {
+    id: serial('id').primaryKey(),
+    image: varchar('image'),
+    productId: integer('productid')
+  });
+
+  export const reviews = pgTable('reviews', {
+    id: serial('id').primaryKey(),
+    productId:integer('productid'),
+    userId:text('userid'),
+    review: varchar('review')
   });

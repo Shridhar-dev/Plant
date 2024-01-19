@@ -1,8 +1,14 @@
-import { auth } from "@/auth"
+import { auth } from "@/lib/auth"
 import AuthButton from "@/components/interface/AuthButton";
+import { redirect } from "next/navigation";
 
 async function LoginPage() {
   const session = await auth();
+
+  /*if(session){
+    redirect("/")
+  }*/
+
   return (
     <div className='grid grid-flow-col grid-cols-3'>
       <div className='flex items-center justify-center h-screen'>
@@ -20,12 +26,8 @@ async function LoginPage() {
       <div className='bg-blue-500 h-screen col-span-2 leaf-container flex items-center justify-center'>
         <div className='bg-white p-10 rounded-md w-1/2'>
           <p className="text-center text-2xl font-semibold">Plant.co 🪴</p>
-          <p className='text-center mt-5'>or login using email and password</p>
-          <input placeholder='Username' className='p-2 w-full  mt-5 border-b-2 border-black border-opacity-5'/>
+          <p className='text-center mt-5'>or login using email</p>
           <input placeholder='Email' type="email" className='p-2 w-full mt-5 border-b-2 border-black border-opacity-5'/>
-          <div className="flex items-center mt-5 w-full border-b-2 border-black border-opacity-5">
-            <input placeholder='Password' type="password" className='p-2 w-full '/>
-          </div>
           <AuthButton style='mt-10 w-full' type="logout">Log in with Email</AuthButton>
 
         </div>
