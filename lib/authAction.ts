@@ -1,14 +1,13 @@
-"use server"
+"use server";
 
-import { signIn, signOut } from "@/lib/auth"
+import { signIn, signOut } from "@/lib/auth";
 
+export const login = async () => {
+    "use server";
+    await signIn("google");
+};
 
-export const login = async() => {
-    "use server"
-    await signIn("google")
-}
-
-export const logout = async() => {
-    "use server"
-    await signOut()
-}
+export const logout = async () => {
+    "use server";
+    await signOut();
+};

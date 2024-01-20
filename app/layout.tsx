@@ -1,60 +1,69 @@
-"use client"
+"use client";
 
-import './globals.css'
+import "./globals.css";
 
-import { Inter } from 'next/font/google'
-import { Dispatch, SetStateAction, createContext, useState } from 'react'
-import { Toaster } from '@/components/ui/toaster'
-import { SessionProvider } from 'next-auth/react'
+import { Inter } from "next/font/google";
+import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
+import { Toaster } from "@/components/ui/toaster";
+import { addItemToCart, getCartItems, removeItemToCart, updateItemFromCart } from "@/lib/cart";
 
-const inter = Inter({ subsets: ['latin'] })
+
+const inter = Inter({ subsets: ["latin"] });
 
 interface SiteConfigType {
-  cartItems?: any[]
-  setCartItems?: Dispatch<SetStateAction<any>>
+    cartItems?: any[];
+    setCartItems?: Dispatch<SetStateAction<any>>;
 }
 
 let SiteConfig: any = createContext({});
 
-
-
 export default function RootLayout({
-  children
+    children,
 }: {
-  children: React.ReactNode,
-
+    children: React.ReactNode;
 }) {
-  const [cartItems, setCartItems] = useState<any[]>([])
-  
-  const addItemToCart = async(newItem:any) =>{
-    const uniqueItems = cartItems.filter(item => item.name !== newItem.name);
-    setCartItems([...uniqueItems, newItem])
-  }
+    const [cartItems, setCartItems] = useState<any[]>([]);
 
-  const removeCartItem = (id:number) => {
-    let items = [...cartItems];
-    items.splice(id, 1)
-    setCartItems(items)
-  }
+    const addCartItem = async (newItem: any) => {
+        addItemToCart(newItem)
+        const uniqueItems = cartItems.filter(
+            (item) => item.name !== newItem.name
+        );
+        setCartItems([...uniqueItems, newItem]);
+    };
 
-  const changeQuantity = (id:number, quantity:number) => {
-    let items = [...cartItems];
-    items[id].quantity = quantity
-    setCartItems(items)
-  }
+    const removeCartItem = (id: number) => {
+        let items = [...cartItems];
+        removeItemToCart(items[id].id)
+        items.splice(id, 1);
+        setCartItems(items);
+    };
 
-  return (
-      
-        <SiteConfig.Provider value={{cartItems, removeCartItem, addItemToCart, changeQuantity}}>
-          <html lang="en">
-            <body className={inter.className}>
-              <Toaster />
-              {children}
-            </body>
-          </html>
+    const changeQuantity = (id: number, quantity: number) => {
+        let items = [...cartItems];
+        updateItemFromCart(items[id].id, quantity)
+        items[id].quantity = quantity;
+        setCartItems(items);
+    };
+
+    const initialItems = async() => {
+      const data = await getCartItems()
+      return data
+    }
+   
+
+    return (
+        <SiteConfig.Provider
+            value={{ cartItems, removeCartItem, addCartItem, changeQuantity }}
+        >
+            <html lang="en">
+                <body className={inter.className}>
+                    <Toaster />
+                    {children}
+                </body>
+            </html>
         </SiteConfig.Provider>
-      
-  )
+    );
 }
 
-export { SiteConfig }
+export { SiteConfig };

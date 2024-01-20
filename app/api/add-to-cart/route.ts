@@ -1,18 +1,18 @@
 import db from "@/lib/db";
-import { reviews } from "@/lib/schemas";
+import { cartitems } from "@/lib/schemas";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
     const data = await req.json();
 
-    const review = await db
-        .insert(reviews)
+    const cartitem = await db
+        .insert(cartitems)
         .values({
-            review: data.review,
+            quantity: data.quantity || 1,
             productId: data.productId,
             userId: data.id,
         })
-        .execute();
+        .returning({ id: cartitems.id });;
 
-    return NextResponse.json({ message: "Review added successfully!" });
+    return NextResponse.json({ message: "Item added to cart!", id: cartitem[0].id });
 }
