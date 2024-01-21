@@ -4,9 +4,13 @@ import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
-    const data = await req.json();
+  const data = await req.json();
 
-    const cartitem = await db.delete(cartitems).where(eq(cartitems.userId, data.id) && eq(cartitems.productId, data.productId))
+  const cartitem = await db
+    .delete(cartitems)
+    .where(
+      eq(cartitems.userId, data.id) && eq(cartitems.productId, data.productId)
+    );
 
-    return NextResponse.json({ message: "Item removed from cart!" });
+  return NextResponse.json({ message: "Item removed from cart!" });
 }

@@ -1,34 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "../../../lib/db";
 import { products } from "@/lib/schemas";
-import { sql } from "drizzle-orm";
+import { asc, inArray } from "drizzle-orm";
 
 export async function GET(req: NextRequest, res: NextResponse) {
-    const { searchParams } = new URL(req.url);
-    const name = searchParams.get("name");
+  const { searchParams } = new URL(req.url);
+  const name = searchParams.get("name");
 
-    const price = searchParams.get("price");
-    const categories = searchParams.get("categories");
+  const orderBy = searchParams.get("orderBy");
+  const categories = searchParams.get("categories");
 
-    let result;
-    if (name) {
-        const query = `SELECT * FROM products WHERE name ILIKE '%${name}%'`;
-        result = await db.query.products.findMany({
-            where: (product, { ilike }) => ilike(product.name, `%${name}%`),
-        });
-    } else if (price || categories) {
-        const query = `
-      SELECT * FROM products 
-      ${categories && `WHERE category = ANY($1::text[])`}
-      ${price && `WHERE price < ${price}`}
-    `;
+  let result;
+  if (name) {
+    const query = `SELECT * FROM products WHERE name ILIKE '%${name}%'`;
+    result = await db.query.products.findMany({
+      where: (product, { ilike }) => ilike(product.name, `%${name}%`),
+    });
+  } else if (orderBy || categories) {
+    var outputArray = JSON.parse(categories);
 
-        result = await db.execute(sql`${query}`);
-    } else {
-        result = await db.select().from(products);
+    if (categories && orderBy) {
+      result = await db
+        .select()
+        .from(products)
+        .where(inArray(products.category, outputArray))
+        .orderBy(asc(products[orderBy]));
     }
+    if (categories && !orderBy) {
+      result = await db
+        .select()
+        .from(products)
+        .where(inArray(products.category, outputArray));
+    }
+    if (!categories && !orderBy) {
+      result = await db.select().from(products).orderBy(asc(products[orderBy]));
+    }
+  } else {
+    result = await db.select().from(products);
+  }
 
-    return NextResponse.json({ products: result });
+  return NextResponse.json({ products: result });
 }
 
 /*CREATE TABLE products(

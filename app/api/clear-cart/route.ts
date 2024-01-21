@@ -5,13 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const data = await req.json();
-
   const cartitem = await db
-    .update(cartitems)
-    .set({ quantity: data.quantity })
-    .where(
-      eq(cartitems.userId, data.id) && eq(cartitems.productId, data.productId)
-    );
+    .delete(cartitems)
+    .where(eq(cartitems.userId, data.id));
 
-  return NextResponse.json({ message: "Item removed from cart!" });
+  return NextResponse.json({ message: "Cleared cart!" });
 }
