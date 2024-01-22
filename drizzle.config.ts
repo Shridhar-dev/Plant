@@ -10,7 +10,7 @@ export default {
   schema: "./lib/schemas/*",
   driver: "pg",
   dbCredentials: {
-    connectionString: "postgresql://shridharkamat10:hDoNHTzUl21r@ep-misty-dust-a5w0n53p.us-east-2.aws.neon.tech/Plant?sslmode=require"!,
+    connectionString: process.env.PGSQL_CONNECTION_STRING!,
   },
   out: "./drizzle",
 } satisfies Config;
