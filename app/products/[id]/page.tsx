@@ -88,16 +88,18 @@ function ProductPage({ params }: { params: any }) {
       <Navbar isFixed={false} />
       <div className="grid grid-cols-5 px-20">
         <div className="col-span-5 lg:col-span-2 pt-10">
-          {product && (
-            <Image
-              src={currentProductImage}
-              loader={({ src }) => src}
-              width={1}
-              height={0}
-              className="w-[30rem] h-[30rem] rounded-lg"
-              alt={"Header Image showcasing gadgets"}
-            />
-          )}
+          <div className="w-[30rem]">
+            {product && (
+              <Image
+                src={currentProductImage}
+                width={500}
+                height={500}
+                layout="responsive"
+                className="w-full h-[30rem] rounded-lg"
+                alt={"Header Image showcasing gadgets"}
+              />
+            )}
+          </div>
           <div className="flex items-center gap-3 mt-4">
             {product?.images.map((imageObj: { image: string }, i: number) => (
               <FocusImage
@@ -108,7 +110,7 @@ function ProductPage({ params }: { params: any }) {
             ))}
           </div>
         </div>
-        <div className="col-span-5 lg:col-span-3 flex h-screen flex-col gap-3 pt-10 lg:overflow-auto scrollbar-hide">
+        <div className="col-span-5 lg:col-span-3 flex h-[85vh] flex-col gap-3 pt-10 overflow-auto scrollbar-hide">
           <div className="sticky lg:static top-0 pt-5 lg:pt-0 bg-white z-10">
             <p className=" text-4xl font-semibold">{product?.name}</p>
             <p className="my-4">{product?.excerpt}</p>
@@ -169,9 +171,8 @@ function FocusImage({ image, setFocusImage }: any) {
   return (
     <Image
       src={image}
-      loader={({ src }) => src}
-      width={1}
-      height={0}
+      width={200}
+      height={200}
       className="w-16 h-16 rounded-lg cursor-pointer hover:brightness-150"
       alt={"Header Image showcasing gadgets"}
       onClick={() => setFocusImage(image)}
@@ -184,9 +185,8 @@ function Review({ image, review, name }: any) {
     <div className="flex items-center gap-3">
       <Image
         src={image}
-        loader={({ src }) => src}
-        width={1}
-        height={0}
+        width={200}
+        height={200}
         className="w-14 h-14 rounded-full"
         alt={"Header Image showcasing gadgets"}
       />

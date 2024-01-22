@@ -24,9 +24,8 @@ function CartItem({ name, excerpt, price, image, id }: CartItem) {
     <div className="border rounded-md flex gap-3 items-start p-3 mt-5">
       <Image
         src={image}
-        loader={({ src }) => src}
-        width={1}
-        height={0}
+        width={200}
+        height={200}
         className="w-20 h-20 rounded-lg"
         alt={"Header Image showcasing gadgets"}
       />
@@ -51,9 +50,8 @@ function SearchCartItem({ name, excerpt, price, image }: CartItem) {
     <div className=" flex gap-3 items-center p-3 cursor-pointer">
       <Image
         src={image}
-        loader={({ src }) => src}
-        width={1}
-        height={0}
+        width={200}
+        height={200}
         className="w-14 h-14 rounded-lg"
         alt={"Header Image showcasing gadgets"}
       />

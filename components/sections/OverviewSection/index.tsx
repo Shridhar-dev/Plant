@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Overview1 from "@/assets/overview1.jpeg"
+import Overview2 from "@/assets/overview2.jpg"
 
 function OverviewSection() {
   return (
@@ -18,24 +20,18 @@ function OverviewSection() {
       <div className="w-full flex flex-wrap md:flex-nowrap items-center justify-between gap-10 mt-10">
         <div className="w-full md:w-1/2 overflow-hidden">
           <Image
-            src={
-              "https://images.pexels.com/photos/923548/pexels-photo-923548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            }
-            loader={({ src }) => src}
-            width={10}
-            height={0}
+            src={Overview1.src}
+            width={Overview1.width}
+            height={Overview1.height}
             className="w-full h-72 hover:brightness-110 hover:scale-105 duration-500"
             alt={"Header Image showcasing gadgets"}
           />
         </div>
         <div className="w-full md:w-1/2 overflow-hidden">
           <Image
-            src={
-              "https://images.pexels.com/photos/213727/pexels-photo-213727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            }
-            loader={({ src }) => src}
-            width={10}
-            height={0}
+            src={Overview2.src}
+            width={Overview2.width}
+            height={Overview2.height}
             className="w-full h-72 hover:brightness-110 hover:scale-105 duration-500"
             alt={"Header Image showcasing gadgets"}
           />

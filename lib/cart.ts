@@ -61,6 +61,7 @@ export const updateItemFromCart = async (id: number, quantity: number) => {
 
 export const getCartItems = async () => {
   const user: any = await getSession();
+  if(!user) return;
   const response = await fetch(`/api/get-cart?id=${user.id}`);
   const jsonres = await response.json();
   return await jsonres;

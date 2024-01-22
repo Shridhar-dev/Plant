@@ -35,7 +35,6 @@ export default function Home() {
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
-    console.log("Cart Items changed");
     let sum = 0;
     if (cartItems.length > 0) {
       cartItems.forEach((item: CartItemProps) => {
@@ -102,9 +101,8 @@ export default function Home() {
                   <TableCell className="font-medium">
                     <Image
                       src={item.image}
-                      loader={({ src }) => src}
-                      width={1}
-                      height={0}
+                      width={96}
+                      height={96}
                       className="w-24 h-24 rounded-lg"
                       alt={"Header Image showcasing gadgets"}
                     />

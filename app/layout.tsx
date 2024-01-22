@@ -60,7 +60,7 @@ export default function RootLayout({
 
   const initialItems = async () => {
     const data = await getCartItems();
-    console.log(data.items);
+    if(!data) return;
     setCartItems(data.items);
   };
 

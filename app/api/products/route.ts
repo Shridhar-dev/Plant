@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "../../../lib/db";
-import { products } from "@/lib/schemas";
-import { asc, inArray } from "drizzle-orm";
+import { products, users } from "@/lib/schemas";
+import { asc, eq, inArray } from "drizzle-orm";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
@@ -10,9 +10,22 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const orderBy = searchParams.get("orderBy");
   const categories = searchParams.get("categories");
 
+  const fields = {
+    id: products.id,
+    name: products.name,
+    image: products.image,
+    description: products.description,
+    excerpt: products.excerpt,
+    userId: products.userId,
+    price: products.price,
+    rating: products.rating,
+    category: products.category,
+    user_name: users.name,
+    user_image: users.image,
+  }
+
   let result;
   if (name) {
-    const query = `SELECT * FROM products WHERE name ILIKE '%${name}%'`;
     result = await db.query.products.findMany({
       where: (product, { ilike }) => ilike(product.name, `%${name}%`),
     });
@@ -28,15 +41,16 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
     if (categories && !orderBy) {
       result = await db
-        .select()
+        .select(fields)
         .from(products)
+        .leftJoin(users, eq(products.userId, users.id))
         .where(inArray(products.category, outputArray));
     }
     if (!categories && !orderBy) {
       result = await db.select().from(products).orderBy(asc(products[orderBy]));
     }
   } else {
-    result = await db.select().from(products);
+    result = await db.select(fields).from(products).leftJoin(users, eq(products.userId, users.id));
   }
 
   return NextResponse.json({ products: result });

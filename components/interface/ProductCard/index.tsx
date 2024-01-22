@@ -9,6 +9,7 @@ import Link from "next/link";
 interface ProductCardProps {
   id: number;
   name: string;
+  username: string;
   image: string;
   excerpt: string;
   price: number;
@@ -22,6 +23,7 @@ function ProductCard({
   price,
   rating,
   id,
+  username,
 }: ProductCardProps) {
   const { addCartItem }: any = useContext(SiteConfig);
 
@@ -45,15 +47,14 @@ function ProductCard({
         <div className="relative">
           <Image
             src={image}
-            loader={({ src }) => src}
-            width={1}
-            height={0}
+            width={500}
+            height={500}
             className="w-full object-cover h-72 rounded-lg flex-1"
             alt={"Header Image showcasing gadgets"}
           />
-          <button className="bg-white absolute right-3 top-3 rounded-full h-8 w-8 text-sm flex items-center justify-center">
+          {/*<button className="bg-white absolute right-3 top-3 rounded-full h-8 w-8 text-sm flex items-center justify-center">
             <Heart size={16} />
-          </button>
+  </button>*/}
         </div>
         <div className="flex items-center justify-between font-semibold text-xl mt-2">
           <p>{name}</p>
@@ -62,10 +63,13 @@ function ProductCard({
         <p className="text-sm font-medium text-gray-600 line-clamp-1">
           {excerpt}
         </p>
+        <p className="text-xs font-medium text-gray-600 line-clamp-1 mt-1">
+          By {username}
+        </p>
       </Link>
       <button
         onClick={addCartItems}
-        className="border-2 border-black font-semibold hover:bg-black hover:text-white duration-300 text-sm py-1 px-4 rounded-full mt-2"
+        className="border-2 border-black font-semibold hover:bg-black hover:text-white duration-300 text-sm py-1 px-4 rounded-full mt-4"
       >
         Add to Cart
       </button>
