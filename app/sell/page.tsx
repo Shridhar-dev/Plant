@@ -49,7 +49,7 @@ export default function Sell() {
     const user: any = await getSession();
     const links = await uploadImages(formData.images);
 
-    await fetch("/api/sell", {
+    await fetch("/api/sell-product", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

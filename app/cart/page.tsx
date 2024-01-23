@@ -14,7 +14,7 @@ import {
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { SiteConfig } from "../layout";
-import { Trash2Icon } from "lucide-react";
+import { Loader2, Trash2Icon } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
 import { getSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
@@ -29,9 +29,10 @@ interface CartItemProps {
   id: number;
 }
 
-export default function Home() {
+export default function Cart() {
   const { cartItems, removeCartItem, changeQuantity }: any =
     useContext(SiteConfig);
+  const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
@@ -45,6 +46,7 @@ export default function Home() {
   };
 
   const createCheckOutSession = async () => {
+    setLoading(true)
     const stripe = await stripePromise;
     const session: any = await getSession();
 
@@ -73,6 +75,7 @@ export default function Home() {
         }
       })
       .catch((error) => console.error("Error:", error));
+      setLoading(false)
   };
 
   useEffect(() => {
@@ -149,8 +152,9 @@ export default function Home() {
             </TableRow>
           </TableFooter>
         </Table>
-        <Button className="mt-5" onClick={createCheckOutSession}>
+        <Button disabled={loading} className="mt-5" onClick={createCheckOutSession}>
           Proceed {"->"}
+          {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
         </Button>
       </section>
       <Footer />

@@ -58,7 +58,7 @@ function ProductPage({ params }: { params: any }) {
   const addReview = async () => {
     const user: any = await getSession();
 
-    await fetch("/api/review", {
+    await fetch("/api/add-review", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,83 +86,88 @@ function ProductPage({ params }: { params: any }) {
   return (
     <div className="flex flex-col h-screen lg:overflow-hidden">
       <Navbar isFixed={false} />
-      <div className="grid grid-cols-5 px-20">
-        <div className="col-span-5 lg:col-span-2 pt-10">
-          <div className="w-[30rem]">
-            {product && (
-              <Image
-                src={currentProductImage}
-                width={500}
-                height={500}
-                layout="responsive"
-                className="w-full h-[30rem] rounded-lg"
-                alt={"Header Image showcasing gadgets"}
-              />
-            )}
-          </div>
-          <div className="flex items-center gap-3 mt-4">
-            {product?.images.map((imageObj: { image: string }, i: number) => (
-              <FocusImage
-                key={i}
-                image={imageObj.image}
-                setFocusImage={setCurrentProductImage}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="col-span-5 lg:col-span-3 flex h-[85vh] flex-col gap-3 pt-10 overflow-auto scrollbar-hide">
-          <div className="sticky lg:static top-0 pt-5 lg:pt-0 bg-white z-10">
-            <p className=" text-4xl font-semibold">{product?.name}</p>
-            <p className="my-4">{product?.excerpt}</p>
-            <p className="mb-5">{product?.description}</p>
-            <hr />
-          </div>
-          <p className=" text-4xl font-semibold">
-            ₹{(product?.price || 0) * quantity}{" "}
-            <span className="text-lg opacity-50 inline font-normal">
-              for {quantity} pieces
-            </span>
-          </p>
-          <div className="flex gap-2">
-            <input
-              className="border p-1 pl-3"
-              value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
-              autoFocus
-              type="number"
-              id="tentacles"
-              name="tentacles"
-              min="1"
-              max="100"
-            />
-            <Button variant="outline" onClick={addCartItems}>
-              Add to Cart
-            </Button>
-          </div>
-          <div className="mt-10">
-            <p className="text-2xl font-semibold">Reviews ⭐</p>
-            <div className="mb-5 mt-2 w-2/3 ml-1 flex items-center gap-2">
-              <Input
-                placeholder="Add your review!"
-                onChange={(e) => setReview(e.target.value)}
-              />
-              <Button variant="secondary" onClick={addReview}>
-                Submit
-              </Button>
+      {
+        product ? 
+        <div className="grid grid-cols-5 px-20">
+          <div className="col-span-5 lg:col-span-2 pt-10">
+            <div className="w-[30rem]">
+              {product && (
+                <Image
+                  src={currentProductImage}
+                  width={500}
+                  height={500}
+                  layout="responsive"
+                  className="w-full h-[30rem] rounded-lg"
+                  alt={"Header Image showcasing gadgets"}
+                />
+              )}
             </div>
-            <div className="flex flex-col gap-5 py-2">
-              {product?.reviews?.map((review, id) => (
-                <Review
-                  key={id}
-                  review={review.review}
-                  image={review.user_image}
-                  name={review.user_name}
+            <div className="flex items-center gap-3 mt-4">
+              {product?.images.map((imageObj: { image: string }, i: number) => (
+                <FocusImage
+                  key={i}
+                  image={imageObj.image}
+                  setFocusImage={setCurrentProductImage}
                 />
               ))}
             </div>
           </div>
+          <div className="col-span-5 lg:col-span-3 flex h-[85vh] flex-col gap-3 pt-10 overflow-auto scrollbar-hide">
+            <div className="sticky lg:static top-0 pt-5 lg:pt-0 bg-white z-10">
+              <p className=" text-4xl font-semibold">{product?.name}</p>
+              <p className="my-4">{product?.excerpt}</p>
+              <p className="mb-5">{product?.description}</p>
+              <hr />
+            </div>
+            <p className=" text-4xl font-semibold">
+              ₹{(product?.price || 0) * quantity}{" "}
+              <span className="text-lg opacity-50 inline font-normal">
+                for {quantity} pieces
+              </span>
+            </p>
+            <div className="flex gap-2">
+              <input
+                className="border p-1 pl-3"
+                value={quantity}
+                onChange={(e) => setQuantity(parseInt(e.target.value))}
+                autoFocus
+                type="number"
+                id="tentacles"
+                name="tentacles"
+                min="1"
+                max="100"
+              />
+              <Button variant="outline" onClick={addCartItems}>
+                Add to Cart
+              </Button>
+            </div>
+            <div className="mt-10">
+              <p className="text-2xl font-semibold">Reviews ⭐</p>
+              <div className="mb-5 mt-2 w-2/3 ml-1 flex items-center gap-2">
+                <Input
+                  placeholder="Add your review!"
+                  onChange={(e) => setReview(e.target.value)}
+                />
+                <Button variant="secondary" onClick={addReview}>
+                  Submit
+                </Button>
+              </div>
+              <div className="flex flex-col gap-5 py-2">
+                {product?.reviews?.map((review, id) => (
+                  <Review
+                    key={id}
+                    review={review.review}
+                    image={review.user_image}
+                    name={review.user_name}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+        : 
+        <ProductsPageSkeleton />
+      }
     </div>
   );
 }
@@ -196,6 +201,67 @@ function Review({ image, review, name }: any) {
       </div>
     </div>
   );
+}
+
+function ProductsPageSkeleton(){
+  return(
+    <div className="grid grid-cols-5 px-20">
+        <div className="col-span-5 lg:col-span-2 pt-10">
+          <div className="w-[30rem] h-[30rem] bg-gray-200 animate-pulse rounded-lg" />
+          <div className="flex items-center gap-3 mt-4">
+            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
+            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
+            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
+            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
+            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
+          </div>
+        </div>
+        <div className="col-span-5 lg:col-span-3 flex h-[85vh] flex-col gap-3 pt-10 overflow-auto scrollbar-hide">
+          <div className="sticky lg:static top-0 pt-5 lg:pt-0 bg-white z-10">
+            <p className="h-10 bg-gray-200 animate-pulse rounded-lg font-semibold" />
+            <p className="h-5 bg-gray-200 animate-pulse my-4 rounded-lg" />
+            <p className="h-5 bg-gray-200 animate-pulse mb-5 rounded-lg" />
+            <hr />
+          </div>
+          <p className=" text-4xl h-10 bg-gray-200 animate-pulse w-1/2 font-semibold rounded-lg" />
+          <div className="flex h-10 bg-gray-200 animate-pulse gap-2 rounded-lg" />
+          <div className="mt-10">
+            <p className="text-2xl h-8 bg-gray-200 animate-pulse rounded-lg font-semibold" />
+            <div className="mb-5 h-10 bg-gray-200 animate-pulse rounded-lg mt-2 w-2/3 flex items-center gap-2" />
+            <div className="flex flex-col gap-5 py-2">
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-gray-200 animate-pulse"/>
+                <div className="flex-1">
+                  <p className="text-lg h-8 w-full rounded-lg bg-gray-200 animate-pulse font-semibold" />
+                  <p className="text-lg h-5 mt-2 w-2/3 rounded-lg bg-gray-200 animate-pulse font-semibold" />
+                </div>
+              </div>
+              
+            </div>
+            <div className="flex flex-col gap-5 py-2">
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-gray-200 animate-pulse"/>
+                <div className="flex-1">
+                  <p className="text-lg h-8 w-full rounded-lg bg-gray-200 animate-pulse font-semibold" />
+                  <p className="text-lg h-5 mt-2 w-2/3 rounded-lg bg-gray-200 animate-pulse font-semibold" />
+                </div>
+              </div>
+              
+            </div>
+            <div className="flex flex-col gap-5 py-2">
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-gray-200 animate-pulse"/>
+                <div className="flex-1">
+                  <p className="text-lg h-8 w-full rounded-lg bg-gray-200 animate-pulse font-semibold" />
+                  <p className="text-lg h-5 mt-2 w-2/3 rounded-lg bg-gray-200 animate-pulse font-semibold" />
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+  )
 }
 
 export default ProductPage;
