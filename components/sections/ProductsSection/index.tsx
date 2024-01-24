@@ -23,7 +23,7 @@ interface ProductItemProps {
   rating: number;
 }
 
-function ProductsSection({ text = "Plants For You!" }) {
+function ProductsSection({ text = "Plants For You!", showFilters=true }) {
   const [productItems, setProductsItems] = useState<ProductItemProps[] | null>(null);
   const [filters, setFilters] = useState({
     Indoor: false,
@@ -66,61 +66,63 @@ function ProductsSection({ text = "Plants For You!" }) {
   };
 
   return (
-    <div className="w-full  py-5 my-20">
-      <div className="flex items-center justify-between ">
-        <div className="flex items-center gap-3">
-          <Filter name="Categories">
-            <CheckBoxOption
-              handler={filterChanged}
-              type="categories"
-              name="Indoor"
-              filters={filters}
-            />
-            <CheckBoxOption
-              handler={filterChanged}
-              type="categories"
-              name="Outside"
-              filters={filters}
-            />
-            <CheckBoxOption
-              handler={filterChanged}
-              type="categories"
-              name="Bonsai"
-              filters={filters}
-            />
-            <CheckBoxOption
-              handler={filterChanged}
-              type="categories"
-              name="Cactus"
-              filters={filters}
-            />
-            <CheckBoxOption
-              handler={filterChanged}
-              type="categories"
-              name="Herbs"
-              filters={filters}
-            />
-            <CheckBoxOption
-              handler={filterChanged}
-              type="categories"
-              name="Tropical"
-              filters={filters}
-            />
-          </Filter>
+    <div className="w-full  py-5">
+      {
+        showFilters &&
+        <div className="flex items-center justify-between ">
+          <div className="flex items-center gap-3">
+            <Filter name="Categories">
+              <CheckBoxOption
+                handler={filterChanged}
+                type="categories"
+                name="Indoor"
+                filters={filters}
+              />
+              <CheckBoxOption
+                handler={filterChanged}
+                type="categories"
+                name="Outside"
+                filters={filters}
+              />
+              <CheckBoxOption
+                handler={filterChanged}
+                type="categories"
+                name="Bonsai"
+                filters={filters}
+              />
+              <CheckBoxOption
+                handler={filterChanged}
+                type="categories"
+                name="Cactus"
+                filters={filters}
+              />
+              <CheckBoxOption
+                handler={filterChanged}
+                type="categories"
+                name="Herbs"
+                filters={filters}
+              />
+              <CheckBoxOption
+                handler={filterChanged}
+                type="categories"
+                name="Tropical"
+                filters={filters}
+              />
+            </Filter>
+          </div>
+          <div>
+            {/*
+                          <Filter name="Sort By" type="outlined">
+                              <RadioGroup value={order} onValueChange={(e)=>filterChanged(e)} defaultValue="option-one">
+                                  <RadioOption name="Price" />
+                                  <RadioOption name="Rating" />
+                              </RadioGroup>
+                          </Filter>
+                      */}
+          </div>
         </div>
-        <div>
-          {/*
-                        <Filter name="Sort By" type="outlined">
-                            <RadioGroup value={order} onValueChange={(e)=>filterChanged(e)} defaultValue="option-one">
-                                <RadioOption name="Price" />
-                                <RadioOption name="Rating" />
-                            </RadioGroup>
-                        </Filter>
-                    */}
-        </div>
-      </div>
-
-      <h3 className="text-2xl font-bold mt-10">{text}</h3>
+      }
+      {text && <h3 className="text-2xl font-bold mt-10">{text}</h3>}
       <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-5">
         {
           productItems === null &&

@@ -5,6 +5,8 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useContext } from "react";
 import Link from "next/link";
+import { getSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
   id: number;
@@ -26,19 +28,26 @@ function ProductCard({
   username,
 }: ProductCardProps) {
   const { addCartItem }: any = useContext(SiteConfig);
+  
+  const router = useRouter();
 
-  const addCartItems = () => {
-    let item = {
-      name,
-      totalPrice: price,
-      price: price,
-      quantity: 1,
-      excerpt: excerpt,
-      image,
-      rating,
-      id,
-    };
-    addCartItem(item);
+  const addCartItems = async() => {
+    const session = await getSession()
+    
+    if(!session) router.push("/login");
+    else{
+      let item = {
+        name,
+        totalPrice: price,
+        price: price,
+        quantity: 1,
+        excerpt: excerpt,
+        image,
+        rating,
+        id,
+      };
+      addCartItem(item);
+    }
   };
 
   return (

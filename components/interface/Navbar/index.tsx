@@ -27,6 +27,7 @@ import { SearchCartItem } from "../CartItem";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getSession } from "next-auth/react";
 import { logout } from "@/lib/authAction";
+import User from "@/assets/user.svg"
 
 interface CartItemProps {
   name: string;
@@ -137,11 +138,11 @@ function Navbar({ isFixed = false }: { isFixed?: boolean }) {
                       <Avatar>
                         <AvatarImage
                           src={
-                            profile?.image || "https://github.com/shadcn.png"
+                            profile?.image || User.src
                           }
                           sizes="h-10 w-10"
                         />
-                        <AvatarFallback>{profile?.name || "CN"}</AvatarFallback>
+                        <AvatarFallback>{profile?.name.split(" ")[0][0] || "User"}</AvatarFallback>
                       </Avatar>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>

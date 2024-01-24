@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import AuthButton from "@/components/interface/AuthButton";
 import { redirect } from "next/navigation";
+import EmailForm from "@/components/interface/EmailForm";
 
 async function LoginPage() {
   const session = await auth();
@@ -33,14 +34,7 @@ async function LoginPage() {
         <div className="bg-white p-10 rounded-md w-1/2">
           <p className="text-center text-2xl font-semibold">Plant.co 🪴</p>
           <p className="text-center mt-5">or login using email</p>
-          <input
-            placeholder="Email"
-            type="email"
-            className="p-2 w-full mt-5 border-b-2 border-black border-opacity-5"
-          />
-          <AuthButton style="mt-10 w-full" type="logout">
-            Log in with Email
-          </AuthButton>
+          <EmailForm />
         </div>
       </div>
     </div>

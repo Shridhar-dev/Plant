@@ -43,7 +43,9 @@ export default function Home() {
       </main>
       <section className="px-10 sm:px-20">
         <OverviewSection />
-        <ProductsSection />
+        <div className="my-20">
+          <ProductsSection />
+        </div>
       </section>
       <Footer />
     </div>
