@@ -1,8 +1,5 @@
 import { Input } from "@/components/ui/input";
 import { FacebookIcon, InstagramIcon } from "lucide-react";
-import Image from "next/image";
-import React from "react";
-import FooterPlant from "../../../assets/footerplant.png";
 import Link from "next/link";
 
 function Footer() {
@@ -25,7 +22,6 @@ function Footer() {
             <Link href="/products/bonsai"><li>Bonsai</li></Link>
             <Link href="/products/cactus"><li>Cactus</li></Link>
             <Link href="/products/herbs"><li>Herbs</li></Link>
-            <Link href="/products/tropical"><li>Tropical</li></Link>
           </ul>
         </div>
         <div className="col-span-3 md:col-span-1">

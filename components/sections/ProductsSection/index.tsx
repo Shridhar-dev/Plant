@@ -23,7 +23,7 @@ interface ProductItemProps {
   rating: number;
 }
 
-function ProductsSection({ text = "Plants For You!", showFilters=true }) {
+function ProductsSection({ text = "Plants For You!", showFilters=true, category="" }) {
   const [productItems, setProductsItems] = useState<ProductItemProps[] | null>(null);
   const [filters, setFilters] = useState({
     Indoor: false,
@@ -31,12 +31,12 @@ function ProductsSection({ text = "Plants For You!", showFilters=true }) {
     Bonsai: false,
     Cactus: false,
     Herbs: false,
-    Tropical: false,
   });
 
   async function getProducts(queryString = "") {
-    setProductsItems(null)
-    let products = await fetch(`/api/products${queryString}`);
+    setProductsItems(null);
+    
+    let products = await fetch(`/api/products${category ? `?categories=["${category.toLowerCase()}"]` : queryString}`);
     let objProducts = await products.json();
     setProductsItems(objProducts.products);
   }
@@ -100,12 +100,6 @@ function ProductsSection({ text = "Plants For You!", showFilters=true }) {
                 handler={filterChanged}
                 type="categories"
                 name="Herbs"
-                filters={filters}
-              />
-              <CheckBoxOption
-                handler={filterChanged}
-                type="categories"
-                name="Tropical"
                 filters={filters}
               />
             </Filter>

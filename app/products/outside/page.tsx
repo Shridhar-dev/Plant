@@ -3,7 +3,7 @@ import Image from "next/image";
 import Navbar from "@/components/interface/Navbar";
 import ProductsSection from "@/components/sections/ProductsSection";
 import Footer from "@/components/interface/Footer";
-import IndoorImage from "@/assets/indoor.jpg";
+import OutsideImage from "@/assets/outside.jpg";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       <main className="min-h-[50vh]">
         <header className={"w-screen relative overflow-hidden h-[50vh]"}>
           <Image
-            src={IndoorImage.src}
+            src={OutsideImage.src}
             width="0"
             height="0"
             sizes="100vw"
@@ -20,15 +20,15 @@ export default function Home() {
           />
           <Navbar isFixed />
           <p className="text-6xl absolute z-10 top-20 left-20 font-extrabold px-10 py-5  text-black">
-            Indoor
+            Outside
           </p>
           <p className="text-3xl absolute z-10 top-44 left-20 px-10 py-5 text-black">
-            Enhancing your living spaces and elevate the quality of air!
+            Our diverse collection of outdoor plants are designed to bring life to your garden
           </p>
         </header>
       </main>
       <section className="px-10 sm:px-20 mb-20">
-        <ProductsSection text="" showFilters={false} category="indoor"/>
+        <ProductsSection text="" showFilters={false} category="outside"/>
       </section>
       <Footer />
     </div>
