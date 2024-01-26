@@ -15,6 +15,7 @@ interface ProductCardProps {
   excerpt: string;
   description: string;
   price: number;
+  deal_price: number | null;
   rating: number;
   reviews: any[];
   images: { image: string }[];
@@ -44,7 +45,8 @@ function ProductPage({ params }: { params: any }) {
     let item = {
       name: product.name,
       price: product.price,
-      totalPrice: product.price * quantity,
+      deal_price: product.deal_price,
+      totalPrice: (product.deal_price || product.price) * quantity,
       quantity: quantity,
       desc: product.description,
       excerpt: product.excerpt,
@@ -120,8 +122,10 @@ function ProductPage({ params }: { params: any }) {
               <hr />
             </div>
             <p className=" text-4xl font-semibold">
-              ₹{(product?.price || 0) * quantity}{" "}
-              <span className="text-lg opacity-50 inline font-normal">
+              ₹{(product?.deal_price || product?.price || 0) * quantity}{" "}
+              {product?.deal_price && <del className="text-red-500 text-sm ml-1">₹{(product?.price || 0) * quantity}</del>}
+
+              <span className="text-lg opacity-50 inline font-normal ml-2">
                 for {quantity} pieces
               </span>
             </p>

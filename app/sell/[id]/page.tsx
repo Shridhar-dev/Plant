@@ -22,7 +22,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 import { uploadImages } from "@/lib/uploadImages";
 
-export default function Sell() {
+export default function Sell({ params }: { params:any }) {
   const [formData, setFormData] = useState<any>({});
   const { toast } = useToast();
   const router = useRouter();
@@ -39,17 +39,37 @@ export default function Sell() {
   };
 
   const getUser = async () => {
-    const session = await getSession();
+    const session:any = await getSession();
 
     if (!session) {
       router.push("/");
     }
+    else{
+        getProduct(session.id)
+    }
   };
-  const addItem = async () => {
+
+  const getProduct = async (userId:string) => {
+    let product = await fetch(`/api/product?id=${params.id}`);
+    let objProduct = await product.json();
+    if(objProduct.product.userId != userId){
+      router.push("/")
+    }
+    else{
+      setFormData({
+        ...objProduct.product,
+        images: objProduct.images.map((img:any)=>img.image),
+        reviews: objProduct.reviews,
+      });
+    }
+  };
+  
+
+  const updateItem = async () => {
     const user: any = await getSession();
     const links = await uploadImages(formData.images);
 
-    await fetch("/api/sell-product", {
+    await fetch(`/api/update-product?id=${params.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +79,7 @@ export default function Sell() {
       .then((response) => response.json())
       .then((data) => {
         toast({
-          title: "Product added successfully!",
+          title: "Product updated successfully!",
         });
         setTimeout(() => {
           router.push("/");
@@ -98,6 +118,7 @@ export default function Sell() {
               id="name"
               type="text"
               placeholder="Name"
+              value={formData.name}
               onChange={(e) => updateFormData(e, "name")}
             />
             <label htmlFor="description" className="font-semibold mt-2">
@@ -106,6 +127,7 @@ export default function Sell() {
             <Textarea
               id="description"
               placeholder="Add your description"
+              value={formData.description}
               onChange={(e) => updateFormData(e, "description")}
             />
             <label htmlFor="excerpt" className="font-semibold mt-2">
@@ -114,17 +136,19 @@ export default function Sell() {
             <Textarea
               id="excerpt"
               placeholder="Add your excerpt"
+              value={formData.excerpt}
               onChange={(e) => updateFormData(e, "excerpt")}
             />
             <div className="flex justify-between items-center gap-5 mt-2">
               <div className="flex-1">
                 <label htmlFor="price" className="font-semibold">
-                  Price
+                  Actual Price
                 </label>
                 <Input
                   id="price"
                   type="text"
                   placeholder="price"
+                  value={formData.price}
                   onChange={(e) => updateFormData(e, "price")}
                 />
               </div>
@@ -133,6 +157,7 @@ export default function Sell() {
                   Category
                 </label>
                 <Select
+                  value={formData.category}
                   onValueChange={(e: string) => updateFormData(e, "category")}
                 >
                   <SelectTrigger className="w-full">
@@ -149,14 +174,12 @@ export default function Sell() {
               </div>
             </div>
             <div className="mt-5">
-              <Button className="w-1/3" onClick={addItem}>
+              <Button className="w-1/3" onClick={updateItem}>
                 Submit
               </Button>
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <MultiImageInput updateFormData={updateFormData} />
-          </div>
+          
         </div>
       </section>
       <Footer />

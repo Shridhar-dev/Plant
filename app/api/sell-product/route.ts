@@ -10,7 +10,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     .insert(products)
     .values({
       name: data.name,
-      description: data.desc,
+      description: data.description,
       excerpt: data.excerpt,
       image: data.images[0],
       price: parseFloat(data.price),

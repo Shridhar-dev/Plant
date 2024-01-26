@@ -1,15 +1,18 @@
 import Image from "next/image";
 
 import Navbar from "@/components/interface/Navbar";
-import ProductsSection from "@/components/sections/ProductsSection";
 import Footer from "@/components/interface/Footer";
 import HeaderImage from "@/assets/header.jpg";
+import MyProductsSection from "@/components/sections/MyProductsSection";
+import { auth } from "@/lib/auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+
   return (
     <div>
-      <main className="min-h-[50vh]">
-        <header className={"w-screen relative overflow-hidden h-[50vh]"}>
+      <main className="min-h-[30vh]">
+        <header className={"w-screen relative overflow-hidden h-[30vh]"}>
           <Image
             src={HeaderImage.src}
             width="0"
@@ -20,15 +23,12 @@ export default function Home() {
           />
           <Navbar isFixed />
           <p className="text-5xl absolute z-10 top-20 left-20 font-extrabold px-10 py-5 bg-white text-black">
-            Amazing Deals
-          </p>
-          <p className="text-5xl absolute z-10 top-44 left-20 font-extrabold px-10 py-5 bg-white text-black">
-            Just where you need em
+            My Products
           </p>
         </header>
       </main>
-      <section className="px-10 sm:px-20 pb-10">
-        <ProductsSection showFilters={false} text="Deals just for you!" deals={true}/>
+      <section className="px-10 sm:px-20 py-10">
+        <MyProductsSection id={session.id}/>
       </section>
       <Footer />
     </div>

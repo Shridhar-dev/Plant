@@ -5,10 +5,7 @@ import { asc, eq, inArray, isNotNull } from "drizzle-orm";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const name = searchParams.get("name");
-
-  const orderBy = searchParams.get("deals");
-  const categories = searchParams.get("categories");
+  const id = searchParams.get("id");
 
   const fields = {
     id: products.id,
@@ -25,38 +22,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     user_image: users.image,
   }
 
-  let result;
-  if (name) {
-    result = await db.query.products.findMany({
-      where: (product, { ilike }) => ilike(product.name, `%${name}%`),
-    });
-  } else if (orderBy || categories) {
-    var outputArray = JSON.parse(categories!);
-
-    if (categories && orderBy) {
-      result = await db
-        .select(fields)
-        .from(products)
-        .leftJoin(users, eq(products.userId, users.id))
-        .where(inArray(products.category, outputArray) && isNotNull(products.deal_price))
-    }
-    if (!categories && orderBy) {
-      result = await db
-        .select(fields)
-        .from(products)
-        .leftJoin(users, eq(products.userId, users.id))
-        .where(isNotNull(products.deal_price))
-    }
-    if (categories && !orderBy) {
-      result = await db
-        .select(fields)
-        .from(products)
-        .leftJoin(users, eq(products.userId, users.id))
-        .where(inArray(products.category, outputArray));
-    }
-  } else {
-    result = await db.select(fields).from(products).leftJoin(users, eq(products.userId, users.id));
-  }
+  let result = await db.select(fields).from(products).leftJoin(users, eq(products.userId, users.id)).where(eq(products.userId, id!));
+  
   return NextResponse.json({ products: result || [] });
 }
 

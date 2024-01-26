@@ -18,7 +18,7 @@ import { Loader2, Trash2Icon } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
 import { getSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
 interface CartItemProps {
   name: string;

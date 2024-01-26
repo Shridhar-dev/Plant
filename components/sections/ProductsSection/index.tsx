@@ -20,10 +20,11 @@ interface ProductItemProps {
   description: string;
   excerpt: string;
   price: number;
+  deal_price: number | null;
   rating: number;
 }
 
-function ProductsSection({ text = "Plants For You!", showFilters=true, category="" }) {
+function ProductsSection({ text = "Plants For You!", showFilters=true, category="", deals=false }) {
   const [productItems, setProductsItems] = useState<ProductItemProps[] | null>(null);
   const [filters, setFilters] = useState({
     Indoor: false,
@@ -33,7 +34,7 @@ function ProductsSection({ text = "Plants For You!", showFilters=true, category=
     Herbs: false,
   });
 
-  async function getProducts(queryString = "") {
+  async function getProducts(queryString = `${deals ? "?deals=true" : ""}`) {
     setProductsItems(null);
     
     let products = await fetch(`/api/products${category ? `?categories=["${category.toLowerCase()}"]` : queryString}`);
@@ -56,7 +57,7 @@ function ProductsSection({ text = "Plants For You!", showFilters=true, category=
         filtersArray.push(`"${filter.toLowerCase()}"`);
       }
     });
-    queryString = `${queryString}[${filtersArray}]`;
+    queryString = `${queryString}[${filtersArray}]${deals && "&deals=true"}`
 
     if (filtersArray.length > 0) {
       getProducts(queryString);
@@ -137,6 +138,7 @@ function ProductsSection({ text = "Plants For You!", showFilters=true, category=
             excerpt={product.excerpt}
             rating={product.rating}
             price={product.price}
+            deal_price={product.deal_price}
           />
         ))}
         {productItems?.length === 0 && <p>No products found</p>}

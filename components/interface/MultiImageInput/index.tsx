@@ -4,15 +4,19 @@ import Image from "next/image";
 import React, { useCallback, useEffect, useState, ChangeEvent } from "react";
 import { useDropzone } from "react-dropzone";
 
+let firstTime = true;
 function MultiImageInput({
   updateFormData,
+  prevImages=[]
 }: {
   updateFormData: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string,
     type: string
-  ) => void;
+  ) => void,
+  prevImages: string[] 
 }) {
   const [images, setImages] = useState<any>([]);
+
   const onDrop = useCallback((acceptedFiles: any) => {
     acceptedFiles.forEach((file: any) => {
       const reader = new FileReader();
@@ -20,7 +24,7 @@ function MultiImageInput({
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
       reader.onloadend = () => {
-        setImages((prev: any) => [...prev, reader.result]);
+        setImages((prev: any) => [...prevImages, ...prev, reader.result]);
       };
       reader.readAsDataURL(file);
     });
@@ -37,10 +41,10 @@ function MultiImageInput({
     });
     setImages(newImages);
   };
-
-  useEffect(() => {
-    updateFormData(images, "images");
-  }, [images]);
+  
+  useEffect(()=>{
+    updateFormData(images, "images")
+  }, [images])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -57,11 +61,12 @@ function MultiImageInput({
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <p>Drag/drop some files here, or click to select files</p>
         )}
       </div>
       <div className="flex items-center gap-2 mt-2 w-full ">
-        {images.map((image: any, i: number) => (
+        
+        {(images.length > 0 ? images : prevImages).map((image: any, i: number) => (
           <div className=" h-16 w-16 overflow-hidden rounded-md relative">
             <div className="h-full w-full top-0 left-0 z-10 absolute opacity-0 hover:opacity-100">
               <XCircleIcon

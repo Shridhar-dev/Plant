@@ -20,7 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import Link from "next/link";
-import { LogOut, Search, ShoppingCart } from "lucide-react";
+import { LogOut, Package, Search, ShoppingCart } from "lucide-react";
 import CartSideBar from "../CartSideBar";
 import { SiteConfig } from "@/app/layout";
 import { SearchCartItem } from "../CartItem";
@@ -149,12 +149,20 @@ function Navbar({ isFixed = false }: { isFixed?: boolean }) {
                       <DropdownMenuLabel>My Account</DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       {profile?.email && (
-                        <Link href="/sell">
-                          <DropdownMenuItem>
-                            <ShoppingCart className="mr-2 h-4 w-4" />
-                            <span>Sell your plant</span>
-                          </DropdownMenuItem>
-                        </Link>
+                        <>
+                          <Link href="/my-products">
+                            <DropdownMenuItem>
+                              <Package className="mr-2 h-4 w-4" />
+                              <span>My Products</span>
+                            </DropdownMenuItem>
+                          </Link>
+                          <Link href="/sell">
+                            <DropdownMenuItem>
+                              <ShoppingCart className="mr-2 h-4 w-4" />
+                              <span>Sell your plant</span>
+                            </DropdownMenuItem>
+                          </Link>
+                        </>
                       )}
                       {profile?.email ? (
                         <DropdownMenuItem onClick={() => logout()}>

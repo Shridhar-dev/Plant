@@ -9,11 +9,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const product = await db
     .select()
     .from(products)
-    .where(eq(products.id, param));
+    .where(eq(products.id, parseInt(param!)));
   const images = await db
     .select()
     .from(productImages)
-    .where(eq(productImages.productId, param));
+    .where(eq(productImages.productId, parseInt(param!)));
 
   const review = await db
     .select({
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     })
     .from(reviews)
     .fullJoin(users, eq(reviews.userId, users.id))
-    .where(eq(reviews.productId, param));
+    .where(eq(reviews.productId, parseInt(param!)));
 
   return NextResponse.json({
     product: product[0],

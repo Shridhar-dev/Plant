@@ -72,6 +72,7 @@ export const products = pgTable("products", {
   price: integer("price").notNull(),
   rating: decimal("rating"),
   category: varchar("category"),
+  deal_price: integer("deal_price")
 });
 
 export const productImages = pgTable("productimages", {
