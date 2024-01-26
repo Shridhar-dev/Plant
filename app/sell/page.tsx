@@ -155,7 +155,7 @@ export default function Sell() {
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <MultiImageInput updateFormData={updateFormData} />
+            <MultiImageInput updateFormData={updateFormData} prevImages={[]}/>
           </div>
         </div>
       </section>

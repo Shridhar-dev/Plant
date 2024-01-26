@@ -67,7 +67,7 @@ function MultiImageInput({
       <div className="flex items-center gap-2 mt-2 w-full ">
         
         {(images.length > 0 ? images : prevImages).map((image: any, i: number) => (
-          <div className=" h-16 w-16 overflow-hidden rounded-md relative">
+          <div key={i} className=" h-16 w-16 overflow-hidden rounded-md relative">
             <div className="h-full w-full top-0 left-0 z-10 absolute opacity-0 hover:opacity-100">
               <XCircleIcon
                 onClick={() => removeImage(i)}

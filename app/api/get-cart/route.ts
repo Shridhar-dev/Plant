@@ -23,7 +23,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     })
     .from(cartitems)
     .fullJoin(products, eq(cartitems.productId, products.id))
-    .where(eq(cartitems.userId, param));
+    .where(eq(cartitems.userId, param!));
 
   return NextResponse.json({ items: result });
 }

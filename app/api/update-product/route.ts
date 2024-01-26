@@ -8,7 +8,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const data = await req.json();
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id");
-  const session = await auth();
+  const session:any = await auth();
 
   data.rating = 0;
   const product = await db
