@@ -115,7 +115,7 @@ function Navbar({ isFixed = false }: { isFixed?: boolean }) {
                         (searchItem: CartItemProps, i: number) => (
                           <SearchCartItem
                             key={i}
-                            id={i}
+                            id={searchItem.id}
                             name={searchItem.name}
                             image={searchItem.image}
                             excerpt={searchItem.excerpt}

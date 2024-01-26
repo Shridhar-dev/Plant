@@ -108,7 +108,7 @@ export default function Sell({ params }: { params:any }) {
         </header>
       </main>
       <section className="px-20 py-10">
-        <p className="text-4xl font-bold">Create your Product 🌱</p>
+        <p className="text-4xl font-bold">Update your Product 🌱</p>
         <div className="grid grid-cols-2 gap-5 mt-5">
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="font-semibold">

@@ -3,6 +3,7 @@
 import { SiteConfig } from "@/app/layout";
 import { X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { ServerContextJSONValue, useContext } from "react";
 
 interface CartItem {
@@ -45,9 +46,9 @@ function CartItem({ name, excerpt, price, image, id }: CartItem) {
   );
 }
 
-function SearchCartItem({ name, excerpt, price, image }: CartItem) {
+function SearchCartItem({ id, name, excerpt, price, image }: CartItem) {
   return (
-    <div className=" flex gap-3 items-center p-3 cursor-pointer">
+    <Link href={`/products/${id}`} className=" flex gap-3 items-center p-3 cursor-pointer">
       <Image
         src={image}
         width={200}
@@ -64,7 +65,7 @@ function SearchCartItem({ name, excerpt, price, image }: CartItem) {
         </p>
         <p className="mt-1 text-xs font-semibold">₹{price}</p>
       </div>
-    </div>
+    </Link>
   );
 }
 
