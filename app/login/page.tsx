@@ -17,9 +17,9 @@ async function LoginPage() {
           <p className="text-3xl font-semibold mb-10">Plant.co🪴</p>
           <p className="text-4xl font-semibold mb-3">Welcome!</p>
           <p className="ml-1 text-sm">
-            We source the healthiest and most beautiful plants to bring nature{"'"}s
-            finest to your home. We provide expert care advice to ensure your
-            plants thrive.
+            We source the healthiest and most beautiful plants to bring nature
+            {"'"}s finest to your home. We provide expert care advice to ensure
+            your plants thrive.
           </p>
           {session === null ? (
             <AuthButton style="mt-5" type="login">

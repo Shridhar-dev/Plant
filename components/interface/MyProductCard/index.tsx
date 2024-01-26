@@ -15,7 +15,7 @@ interface ProductCardProps {
   image: string;
   excerpt: string;
   price: number;
-  deal_price: number| undefined;
+  deal_price: number | undefined;
   rating: number;
 }
 
@@ -29,7 +29,6 @@ function MyProductCard({
   id,
   username,
 }: ProductCardProps) {
-
   return (
     <div className=" rounded-lg overflow-hidden">
       <Link href={`/sell/${id}`}>
@@ -44,7 +43,12 @@ function MyProductCard({
         </div>
         <div className="flex items-center justify-between font-semibold text-xl mt-2">
           <p>{name}</p>
-          <p>₹{deal_price || price}{deal_price && <del className="text-red-500 text-sm ml-1">₹{price}</del>}</p>
+          <p>
+            ₹{deal_price || price}
+            {deal_price && (
+              <del className="text-red-500 text-sm ml-1">₹{price}</del>
+            )}
+          </p>
         </div>
         <p className="text-sm font-medium text-gray-600 line-clamp-1">
           {excerpt}

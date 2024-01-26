@@ -88,8 +88,7 @@ function ProductPage({ params }: { params: any }) {
   return (
     <div className="flex flex-col h-screen lg:overflow-hidden">
       <Navbar isFixed={false} />
-      {
-        product ? 
+      {product ? (
         <div className="grid grid-cols-5 px-20">
           <div className="col-span-5 lg:col-span-2 pt-10">
             <div className="w-[30rem]">
@@ -123,8 +122,11 @@ function ProductPage({ params }: { params: any }) {
             </div>
             <p className=" text-4xl font-semibold">
               ₹{(product?.deal_price || product?.price || 0) * quantity}{" "}
-              {product?.deal_price && <del className="text-red-500 text-sm ml-1">₹{(product?.price || 0) * quantity}</del>}
-
+              {product?.deal_price && (
+                <del className="text-red-500 text-sm ml-1">
+                  ₹{(product?.price || 0) * quantity}
+                </del>
+              )}
               <span className="text-lg opacity-50 inline font-normal ml-2">
                 for {quantity} pieces
               </span>
@@ -169,9 +171,9 @@ function ProductPage({ params }: { params: any }) {
             </div>
           </div>
         </div>
-        : 
+      ) : (
         <ProductsPageSkeleton />
-      }
+      )}
     </div>
   );
 }
@@ -207,65 +209,62 @@ function Review({ image, review, name }: any) {
   );
 }
 
-function ProductsPageSkeleton(){
-  return(
+function ProductsPageSkeleton() {
+  return (
     <div className="grid grid-cols-5 px-20">
-        <div className="col-span-5 lg:col-span-2 pt-10">
-          <div className="w-[30rem] h-[30rem] bg-gray-200 animate-pulse rounded-lg" />
-          <div className="flex items-center gap-3 mt-4">
-            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
-            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
-            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
-            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
-            <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
-          </div>
+      <div className="col-span-5 lg:col-span-2 pt-10">
+        <div className="w-[30rem] h-[30rem] bg-gray-200 animate-pulse rounded-lg" />
+        <div className="flex items-center gap-3 mt-4">
+          <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
+          <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
+          <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
+          <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
+          <div className="w-16 h-16 rounded-lg bg-gray-200 animate-pulse" />
         </div>
-        <div className="col-span-5 lg:col-span-3 flex h-[85vh] flex-col gap-3 pt-10 overflow-auto scrollbar-hide">
-          <div className="sticky lg:static top-0 pt-5 lg:pt-0 bg-white z-10">
-            <p className="h-10 bg-gray-200 animate-pulse rounded-lg font-semibold" />
-            <p className="h-5 bg-gray-200 animate-pulse my-4 rounded-lg" />
-            <p className="h-5 bg-gray-200 animate-pulse mb-5 rounded-lg" />
-            <hr />
+      </div>
+      <div className="col-span-5 lg:col-span-3 flex h-[85vh] flex-col gap-3 pt-10 overflow-auto scrollbar-hide">
+        <div className="sticky lg:static top-0 pt-5 lg:pt-0 bg-white z-10">
+          <p className="h-10 bg-gray-200 animate-pulse rounded-lg font-semibold" />
+          <p className="h-5 bg-gray-200 animate-pulse my-4 rounded-lg" />
+          <p className="h-5 bg-gray-200 animate-pulse mb-5 rounded-lg" />
+          <hr />
+        </div>
+        <p className=" text-4xl h-10 bg-gray-200 animate-pulse w-1/2 font-semibold rounded-lg" />
+        <div className="flex h-10 bg-gray-200 animate-pulse gap-2 rounded-lg" />
+        <div className="mt-10">
+          <p className="text-2xl h-8 bg-gray-200 animate-pulse rounded-lg font-semibold" />
+          <div className="mb-5 h-10 bg-gray-200 animate-pulse rounded-lg mt-2 w-2/3 flex items-center gap-2" />
+          <div className="flex flex-col gap-5 py-2">
+            <div className="flex items-center gap-3">
+              <div className="w-14 h-14 rounded-full bg-gray-200 animate-pulse" />
+              <div className="flex-1">
+                <p className="text-lg h-8 w-full rounded-lg bg-gray-200 animate-pulse font-semibold" />
+                <p className="text-lg h-5 mt-2 w-2/3 rounded-lg bg-gray-200 animate-pulse font-semibold" />
+              </div>
+            </div>
           </div>
-          <p className=" text-4xl h-10 bg-gray-200 animate-pulse w-1/2 font-semibold rounded-lg" />
-          <div className="flex h-10 bg-gray-200 animate-pulse gap-2 rounded-lg" />
-          <div className="mt-10">
-            <p className="text-2xl h-8 bg-gray-200 animate-pulse rounded-lg font-semibold" />
-            <div className="mb-5 h-10 bg-gray-200 animate-pulse rounded-lg mt-2 w-2/3 flex items-center gap-2" />
-            <div className="flex flex-col gap-5 py-2">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-gray-200 animate-pulse"/>
-                <div className="flex-1">
-                  <p className="text-lg h-8 w-full rounded-lg bg-gray-200 animate-pulse font-semibold" />
-                  <p className="text-lg h-5 mt-2 w-2/3 rounded-lg bg-gray-200 animate-pulse font-semibold" />
-                </div>
+          <div className="flex flex-col gap-5 py-2">
+            <div className="flex items-center gap-3">
+              <div className="w-14 h-14 rounded-full bg-gray-200 animate-pulse" />
+              <div className="flex-1">
+                <p className="text-lg h-8 w-full rounded-lg bg-gray-200 animate-pulse font-semibold" />
+                <p className="text-lg h-5 mt-2 w-2/3 rounded-lg bg-gray-200 animate-pulse font-semibold" />
               </div>
-              
             </div>
-            <div className="flex flex-col gap-5 py-2">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-gray-200 animate-pulse"/>
-                <div className="flex-1">
-                  <p className="text-lg h-8 w-full rounded-lg bg-gray-200 animate-pulse font-semibold" />
-                  <p className="text-lg h-5 mt-2 w-2/3 rounded-lg bg-gray-200 animate-pulse font-semibold" />
-                </div>
+          </div>
+          <div className="flex flex-col gap-5 py-2">
+            <div className="flex items-center gap-3">
+              <div className="w-14 h-14 rounded-full bg-gray-200 animate-pulse" />
+              <div className="flex-1">
+                <p className="text-lg h-8 w-full rounded-lg bg-gray-200 animate-pulse font-semibold" />
+                <p className="text-lg h-5 mt-2 w-2/3 rounded-lg bg-gray-200 animate-pulse font-semibold" />
               </div>
-              
-            </div>
-            <div className="flex flex-col gap-5 py-2">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-gray-200 animate-pulse"/>
-                <div className="flex-1">
-                  <p className="text-lg h-8 w-full rounded-lg bg-gray-200 animate-pulse font-semibold" />
-                  <p className="text-lg h-5 mt-2 w-2/3 rounded-lg bg-gray-200 animate-pulse font-semibold" />
-                </div>
-              </div>
-              
             </div>
           </div>
         </div>
       </div>
-  )
+    </div>
+  );
 }
 
 export default ProductPage;

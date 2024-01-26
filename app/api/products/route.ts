@@ -23,7 +23,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     category: products.category,
     user_name: users.name,
     user_image: users.image,
-  }
+  };
 
   let result;
   if (name) {
@@ -38,14 +38,17 @@ export async function GET(req: NextRequest, res: NextResponse) {
         .select(fields)
         .from(products)
         .leftJoin(users, eq(products.userId, users.id))
-        .where(inArray(products.category, outputArray) && isNotNull(products.deal_price))
+        .where(
+          inArray(products.category, outputArray) &&
+            isNotNull(products.deal_price)
+        );
     }
     if (!categories && orderBy) {
       result = await db
         .select(fields)
         .from(products)
         .leftJoin(users, eq(products.userId, users.id))
-        .where(isNotNull(products.deal_price))
+        .where(isNotNull(products.deal_price));
     }
     if (categories && !orderBy) {
       result = await db
@@ -55,7 +58,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
         .where(inArray(products.category, outputArray));
     }
   } else {
-    result = await db.select(fields).from(products).leftJoin(users, eq(products.userId, users.id));
+    result = await db
+      .select(fields)
+      .from(products)
+      .leftJoin(users, eq(products.userId, users.id));
   }
   return NextResponse.json({ products: result || [] });
 }

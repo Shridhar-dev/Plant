@@ -48,7 +48,10 @@ function CartItem({ name, excerpt, price, image, id }: CartItem) {
 
 function SearchCartItem({ id, name, excerpt, price, image }: CartItem) {
   return (
-    <Link href={`/products/${id}`} className=" flex gap-3 items-center p-3 cursor-pointer">
+    <Link
+      href={`/products/${id}`}
+      className=" flex gap-3 items-center p-3 cursor-pointer"
+    >
       <Image
         src={image}
         width={200}

@@ -15,7 +15,7 @@ interface ProductCardProps {
   image: string;
   excerpt: string;
   price: number;
-  deal_price: number| null;
+  deal_price: number | null;
   rating: number;
 }
 
@@ -30,14 +30,14 @@ function ProductCard({
   username,
 }: ProductCardProps) {
   const { addCartItem }: any = useContext(SiteConfig);
-  
+
   const router = useRouter();
 
-  const addCartItems = async() => {
-    const session = await getSession()
-    
-    if(!session) router.push("/login");
-    else{
+  const addCartItems = async () => {
+    const session = await getSession();
+
+    if (!session) router.push("/login");
+    else {
       let item = {
         name,
         totalPrice: deal_price || price,
@@ -69,7 +69,12 @@ function ProductCard({
         </div>
         <div className="flex items-center justify-between font-semibold text-xl mt-2">
           <p>{name}</p>
-          <p>₹{deal_price || price}{deal_price && <del className="text-red-500 text-sm ml-1">₹{price}</del>}</p>
+          <p>
+            ₹{deal_price || price}
+            {deal_price && (
+              <del className="text-red-500 text-sm ml-1">₹{price}</del>
+            )}
+          </p>
         </div>
         <p className="text-sm font-medium text-gray-600 line-clamp-1">
           {excerpt}

@@ -28,7 +28,7 @@ export default function Home() {
         </header>
       </main>
       <section className="px-10 sm:px-20 mb-20">
-        <ProductsSection text="" showFilters={false} category="indoor"/>
+        <ProductsSection text="" showFilters={false} category="indoor" />
       </section>
       <Footer />
     </div>

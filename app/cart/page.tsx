@@ -32,7 +32,7 @@ interface CartItemProps {
 export default function Cart() {
   const { cartItems, removeCartItem, changeQuantity }: any =
     useContext(SiteConfig);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
@@ -46,7 +46,7 @@ export default function Cart() {
   };
 
   const createCheckOutSession = async () => {
-    setLoading(true)
+    setLoading(true);
     const stripe = await stripePromise;
     const session: any = await getSession();
 
@@ -75,7 +75,7 @@ export default function Cart() {
         }
       })
       .catch((error) => console.error("Error:", error));
-      setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -152,7 +152,11 @@ export default function Cart() {
             </TableRow>
           </TableFooter>
         </Table>
-        <Button disabled={loading} className="mt-5" onClick={createCheckOutSession}>
+        <Button
+          disabled={loading}
+          className="mt-5"
+          onClick={createCheckOutSession}
+        >
           Proceed {"->"}
           {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
         </Button>

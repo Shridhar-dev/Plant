@@ -7,7 +7,7 @@ export const login = async () => {
   await signIn("google");
 };
 
-export const loginWithEmail = async (email:FormData) => {
+export const loginWithEmail = async (email: FormData) => {
   "use server";
   await signIn("email", email);
 };

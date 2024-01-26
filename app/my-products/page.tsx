@@ -7,7 +7,7 @@ import MyProductsSection from "@/components/sections/MyProductsSection";
 import { auth } from "@/lib/auth";
 
 export default async function Home() {
-  const session:any = await auth();
+  const session: any = await auth();
 
   return (
     <div>
@@ -28,7 +28,7 @@ export default async function Home() {
         </header>
       </main>
       <section className="px-10 sm:px-20 py-10">
-        <MyProductsSection id={session?.id}/>
+        <MyProductsSection id={session?.id} />
       </section>
       <Footer />
     </div>

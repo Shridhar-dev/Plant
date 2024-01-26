@@ -7,13 +7,13 @@ import { useDropzone } from "react-dropzone";
 let firstTime = true;
 function MultiImageInput({
   updateFormData,
-  prevImages=[]
+  prevImages = [],
 }: {
   updateFormData: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string,
     type: string
-  ) => void,
-  prevImages: string[] 
+  ) => void;
+  prevImages: string[];
 }) {
   const [images, setImages] = useState<any>([]);
 
@@ -41,10 +41,10 @@ function MultiImageInput({
     });
     setImages(newImages);
   };
-  
-  useEffect(()=>{
-    updateFormData(images, "images")
-  }, [images])
+
+  useEffect(() => {
+    updateFormData(images, "images");
+  }, [images]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -65,24 +65,28 @@ function MultiImageInput({
         )}
       </div>
       <div className="flex items-center gap-2 mt-2 w-full ">
-        
-        {(images.length > 0 ? images : prevImages).map((image: any, i: number) => (
-          <div key={i} className=" h-16 w-16 overflow-hidden rounded-md relative">
-            <div className="h-full w-full top-0 left-0 z-10 absolute opacity-0 hover:opacity-100">
-              <XCircleIcon
-                onClick={() => removeImage(i)}
-                className="text-white absolute right-0.5 top-0.5 h-4 w-4 cursor-pointer"
+        {(images.length > 0 ? images : prevImages).map(
+          (image: any, i: number) => (
+            <div
+              key={i}
+              className=" h-16 w-16 overflow-hidden rounded-md relative"
+            >
+              <div className="h-full w-full top-0 left-0 z-10 absolute opacity-0 hover:opacity-100">
+                <XCircleIcon
+                  onClick={() => removeImage(i)}
+                  className="text-white absolute right-0.5 top-0.5 h-4 w-4 cursor-pointer"
+                />
+              </div>
+              <Image
+                src={image}
+                height={96}
+                width={96}
+                alt="product-image"
+                className=" object-fill"
               />
             </div>
-            <Image
-              src={image}
-              height={96}
-              width={96}
-              alt="product-image"
-              className=" object-fill"
-            />
-          </div>
-        ))}
+          )
+        )}
       </div>
     </div>
   );

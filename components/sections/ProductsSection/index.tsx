@@ -11,7 +11,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroupItem } from "@/components/ui/radio-group";
 import { useEffect, type ReactNode, useState, SyntheticEvent } from "react";
 
-
 interface ProductItemProps {
   id: number;
   name: string;
@@ -24,8 +23,15 @@ interface ProductItemProps {
   rating: number;
 }
 
-function ProductsSection({ text = "Plants For You!", showFilters=true, category="", deals=false }) {
-  const [productItems, setProductsItems] = useState<ProductItemProps[] | null>(null);
+function ProductsSection({
+  text = "Plants For You!",
+  showFilters = true,
+  category = "",
+  deals = false,
+}) {
+  const [productItems, setProductsItems] = useState<ProductItemProps[] | null>(
+    null
+  );
   const [filters, setFilters] = useState({
     Indoor: false,
     Outdoor: false,
@@ -36,8 +42,10 @@ function ProductsSection({ text = "Plants For You!", showFilters=true, category=
 
   async function getProducts(queryString = `${deals ? "?deals=true" : ""}`) {
     setProductsItems(null);
-    
-    let products = await fetch(`/api/products${category ? `?categories=["${category.toLowerCase()}"]` : queryString}`);
+
+    let products = await fetch(
+      `/api/products${category ? `?categories=["${category.toLowerCase()}"]` : queryString}`
+    );
     let objProducts = await products.json();
     setProductsItems(objProducts.products);
   }
@@ -57,7 +65,7 @@ function ProductsSection({ text = "Plants For You!", showFilters=true, category=
         filtersArray.push(`"${filter.toLowerCase()}"`);
       }
     });
-    queryString = `${queryString}[${filtersArray}]${deals && "&deals=true"}`
+    queryString = `${queryString}[${filtersArray}]${deals ? "&deals=true" : ""}`;
 
     if (filtersArray.length > 0) {
       getProducts(queryString);
@@ -68,8 +76,7 @@ function ProductsSection({ text = "Plants For You!", showFilters=true, category=
 
   return (
     <div className="w-full  py-5">
-      {
-        showFilters &&
+      {showFilters && (
         <div className="flex items-center justify-between ">
           <div className="flex items-center gap-3">
             <Filter name="Categories">
@@ -116,18 +123,17 @@ function ProductsSection({ text = "Plants For You!", showFilters=true, category=
                       */}
           </div>
         </div>
-      }
+      )}
       {text && <h3 className="text-2xl font-bold mt-10">{text}</h3>}
       <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-5">
-        {
-          productItems === null &&
+        {productItems === null && (
           <>
             <ProductCardSkeleton />
             <ProductCardSkeleton />
             <ProductCardSkeleton />
             <ProductCardSkeleton />
           </>
-        }
+        )}
         {productItems?.map((product, i) => (
           <ProductCard
             key={product.id}
@@ -228,6 +234,6 @@ function ProductCardSkeleton() {
       </div>
       <div className="font-semibold bg-gray-200 animate-pulse text-sm h-5 w-1/3 rounded-full mt-2"></div>
     </div>
-  )
+  );
 }
 export default ProductsSection;

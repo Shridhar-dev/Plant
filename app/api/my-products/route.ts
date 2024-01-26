@@ -20,10 +20,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
     category: products.category,
     user_name: users.name,
     user_image: users.image,
-  }
+  };
 
-  let result = await db.select(fields).from(products).leftJoin(users, eq(products.userId, users.id)).where(eq(products.userId, id!));
-  
+  let result = await db
+    .select(fields)
+    .from(products)
+    .leftJoin(users, eq(products.userId, users.id))
+    .where(eq(products.userId, id!));
+
   return NextResponse.json({ products: result || [] });
 }
 

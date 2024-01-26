@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Overview1 from "@/assets/overview1.jpeg"
-import Overview2 from "@/assets/overview2.jpg"
+import Overview1 from "@/assets/overview1.jpeg";
+import Overview2 from "@/assets/overview2.jpg";
 
 function OverviewSection() {
   return (

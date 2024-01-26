@@ -12,7 +12,6 @@ import { RadioGroupItem } from "@/components/ui/radio-group";
 import { useEffect, type ReactNode, useState, SyntheticEvent } from "react";
 import MyProductCard from "@/components/interface/MyProductCard";
 
-
 interface ProductItemProps {
   id: number;
   name: string;
@@ -25,10 +24,12 @@ interface ProductItemProps {
   rating: number;
 }
 
-function MyProductsSection({ id }: { id:string }) {
-  const [productItems, setProductsItems] = useState<ProductItemProps[] | null>(null);
+function MyProductsSection({ id }: { id: string }) {
+  const [productItems, setProductsItems] = useState<ProductItemProps[] | null>(
+    null
+  );
   async function getProducts() {
-    setProductsItems(null); 
+    setProductsItems(null);
     let products = await fetch(`/api/my-products?id=${id}`);
     let objProducts = await products.json();
     setProductsItems(objProducts.products);
@@ -38,20 +39,17 @@ function MyProductsSection({ id }: { id:string }) {
     getProducts();
   }, []);
 
-
-
   return (
     <div className="w-full ">
       <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {
-          productItems === null &&
+        {productItems === null && (
           <>
             <ProductCardSkeleton />
             <ProductCardSkeleton />
             <ProductCardSkeleton />
             <ProductCardSkeleton />
           </>
-        }
+        )}
         {productItems?.map((product, i) => (
           <MyProductCard
             key={product.id}
@@ -83,6 +81,6 @@ function ProductCardSkeleton() {
       </div>
       <div className="font-semibold bg-gray-200 animate-pulse text-sm h-5 w-1/3 rounded-full mt-2"></div>
     </div>
-  )
+  );
 }
 export default MyProductsSection;

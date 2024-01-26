@@ -17,11 +17,21 @@ function Footer() {
         <div className="col-span-3 md:col-span-1">
           <p className="text-white text-xl font-semibold">Shop</p>
           <ul className="mt-5">
-            <Link href="/products/indoor"><li>Indoor</li></Link>
-            <Link href="/products/outside"><li>Outside</li></Link>
-            <Link href="/products/bonsai"><li>Bonsai</li></Link>
-            <Link href="/products/cactus"><li>Cactus</li></Link>
-            <Link href="/products/herbs"><li>Herbs</li></Link>
+            <Link href="/products/indoor">
+              <li>Indoor</li>
+            </Link>
+            <Link href="/products/outside">
+              <li>Outside</li>
+            </Link>
+            <Link href="/products/bonsai">
+              <li>Bonsai</li>
+            </Link>
+            <Link href="/products/cactus">
+              <li>Cactus</li>
+            </Link>
+            <Link href="/products/herbs">
+              <li>Herbs</li>
+            </Link>
           </ul>
         </div>
         <div className="col-span-3 md:col-span-1">

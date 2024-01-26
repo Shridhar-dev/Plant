@@ -28,7 +28,11 @@ export default function Home() {
         </header>
       </main>
       <section className="px-10 sm:px-20 pb-10">
-        <ProductsSection showFilters={false} text="Deals just for you!" deals={true}/>
+        <ProductsSection
+          showFilters={false}
+          text="Deals just for you!"
+          deals={true}
+        />
       </section>
       <Footer />
     </div>

@@ -23,12 +23,13 @@ export default function Home() {
             Bonsai
           </p>
           <p className="text-3xl absolute z-10 top-44 left-20 px-10 py-5 text-black">
-            Step into the world of tranquility with our exquisite range of Bonsai
+            Step into the world of tranquility with our exquisite range of
+            Bonsai
           </p>
         </header>
       </main>
       <section className="px-10 sm:px-20 mb-20">
-        <ProductsSection text="" showFilters={false} category="bonsai"/>
+        <ProductsSection text="" showFilters={false} category="bonsai" />
       </section>
       <Footer />
     </div>

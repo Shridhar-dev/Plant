@@ -22,7 +22,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 import { uploadImages } from "@/lib/uploadImages";
 
-export default function Sell({ params }: { params:any }) {
+export default function Sell({ params }: { params: any }) {
   const [formData, setFormData] = useState<any>({});
   const { toast } = useToast();
   const router = useRouter();
@@ -39,31 +39,28 @@ export default function Sell({ params }: { params:any }) {
   };
 
   const getUser = async () => {
-    const session:any = await getSession();
+    const session: any = await getSession();
 
     if (!session) {
       router.push("/");
-    }
-    else{
-        getProduct(session.id)
+    } else {
+      getProduct(session.id);
     }
   };
 
-  const getProduct = async (userId:string) => {
+  const getProduct = async (userId: string) => {
     let product = await fetch(`/api/product?id=${params.id}`);
     let objProduct = await product.json();
-    if(objProduct.product.userId != userId){
-      router.push("/")
-    }
-    else{
+    if (objProduct.product.userId != userId) {
+      router.push("/");
+    } else {
       setFormData({
         ...objProduct.product,
-        images: objProduct.images.map((img:any)=>img.image),
+        images: objProduct.images.map((img: any) => img.image),
         reviews: objProduct.reviews,
       });
     }
   };
-  
 
   const updateItem = async () => {
     const user: any = await getSession();
@@ -179,7 +176,6 @@ export default function Sell({ params }: { params:any }) {
               </Button>
             </div>
           </div>
-          
         </div>
       </section>
       <Footer />

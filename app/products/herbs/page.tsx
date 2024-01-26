@@ -23,12 +23,13 @@ export default function Home() {
             Herbs
           </p>
           <p className="text-3xl absolute z-10 top-44 left-20 px-10 py-5 text-black">
-            Delve into the world of natural wellness with our selection of herb plants
+            Delve into the world of natural wellness with our selection of herb
+            plants
           </p>
         </header>
       </main>
       <section className="px-10 sm:px-20 mb-20">
-        <ProductsSection text="" showFilters={false} category="herbs"/>
+        <ProductsSection text="" showFilters={false} category="herbs" />
       </section>
       <Footer />
     </div>

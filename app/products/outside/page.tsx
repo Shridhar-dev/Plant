@@ -23,12 +23,13 @@ export default function Home() {
             Outside
           </p>
           <p className="text-3xl absolute z-10 top-44 left-20 px-10 py-5 text-black">
-            Our diverse collection of outdoor plants are designed to bring life to your garden
+            Our diverse collection of outdoor plants are designed to bring life
+            to your garden
           </p>
         </header>
       </main>
       <section className="px-10 sm:px-20 mb-20">
-        <ProductsSection text="" showFilters={false} category="outside"/>
+        <ProductsSection text="" showFilters={false} category="outside" />
       </section>
       <Footer />
     </div>
