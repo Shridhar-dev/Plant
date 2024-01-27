@@ -14,12 +14,13 @@
 
 ## Technologies used ⚙️
 
-1. NextJS 🔼
+1. NextJS 🌐
 2. Tailwind 🌊
-3. Shadcn 🗻
-4. NextAuth 🔒
-5. Postgres 🐘 
-6. DrizzleORM 🔗
-7. Stripe for Payments 💸
-8. Cloudinary API for image storage 🖼️
-
+3. Typescript 💻
+4. Shadcn 🗻
+5. NextAuth 🔒
+6. Postgres 🐘 
+7. DrizzleORM 🔗
+8. Stripe for Payments 💸
+9. Cloudinary API for image storage 🖼️
+10. Vercel for hosting 🔼
