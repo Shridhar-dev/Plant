@@ -92,7 +92,7 @@ function Navbar({ isFixed = false }: { isFixed?: boolean }) {
           <NavigationMenuList className="flex items-center justify-between w-full ">
             <Link href="/" legacyBehavior passHref>
               <NavigationMenuLink className="text-2xl font-semibold">
-                Plant.co
+                Plantsco
               </NavigationMenuLink>
             </Link>
             <NavigationMenu>

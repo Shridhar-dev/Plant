@@ -7,7 +7,7 @@ function Footer() {
     <div>
       <div className="w-full grid grid-cols-6 gap-20 bg-black px-28 py-20 text-white">
         <div className="col-span-6 md:col-span-2  rounded-full">
-          <p className="text-3xl font-bold">Plant.co</p>
+          <p className="text-3xl font-bold">Plantsco</p>
           <p>Plants. Thats all</p>
           <div className="flex items-center gap-2 mt-2">
             <InstagramIcon />
@@ -59,7 +59,7 @@ function Footer() {
         </div>
       </div>
       <div className="pb-10 bg-black text-white text-center">
-        Plantco. All Rights Reserved. 2024
+        Plantsco. All Rights Reserved. 2024
       </div>
     </div>
   );
