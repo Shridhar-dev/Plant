@@ -17,7 +17,7 @@ export const addItemToCart = async (item: any) => {
     .then((response) => response.json())
     .then((data) => {
       toast({
-        title: "Product added successfully!",
+        title: data.message,
       });
     })
     .catch((error) => console.error("Error:", error));
@@ -35,7 +35,7 @@ export const removeItemToCart = async (id: number) => {
     .then((response) => response.json())
     .then((data) => {
       toast({
-        title: "Product removed successfully!",
+        title: data.message,
       });
     })
     .catch((error) => console.error("Error:", error));
@@ -53,7 +53,7 @@ export const updateItemFromCart = async (id: number, quantity: number) => {
     .then((response) => response.json())
     .then((data) => {
       toast({
-        title: "Quantity updated successfully!",
+        title: data.message,
       });
     })
     .catch((error) => console.error("Error:", error));

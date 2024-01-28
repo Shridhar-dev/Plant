@@ -6,6 +6,7 @@ import OverviewSection from "@/components/sections/OverviewSection";
 import ProductsSection from "@/components/sections/ProductsSection";
 import Footer from "@/components/interface/Footer";
 import HeaderImage from "@/assets/header.jpg";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -22,9 +23,9 @@ export default function Home() {
           />
           <Navbar isFixed />
         </header>
-        <section className="flex flex-wrap items-center text-black -mt-[100%] md:mt-0 sm:absolute  sm:bottom-20 lg:bottom-10 leading-none w-screen px-10 sm:px-20 relative z-30">
+        <section className="flex flex-wrap items-center text-black -mt-[50%] md:mt-0 sm:absolute  sm:bottom-20 lg:bottom-10 leading-none w-screen px-10 sm:px-20 relative z-30">
           <div className="w-full lg:w-[50%]">
-            <p className="text-6xl sm:text-8xl lg:text-[9rem] font-extrabold whitespace-nowrap">
+            <p className="text-6xl sm:text-8xl xl:text-[9rem] font-extrabold whitespace-nowrap">
               Live Green, <br /> In One Click 
             </p>
           </div>
@@ -34,7 +35,10 @@ export default function Home() {
             nature*/}
           </div>
           <div className="w-full lg:w-[30%]">
-            <button className="bg-white p-10 w-full">Shop Now {"->"}</button>
+            
+            <Link href="/#products"> 
+              <button className="bg-white p-10 w-full">Shop Now {"->"}</button>
+            </Link>
             <button className="bg-black text-white p-10 w-full">
               See Promo {"->"}
             </button>
@@ -43,7 +47,7 @@ export default function Home() {
       </main>
       <section className="px-10 sm:px-20">
         <OverviewSection />
-        <div className="my-20">
+        <div id="products" className="my-20">
           <ProductsSection />
         </div>
       </section>

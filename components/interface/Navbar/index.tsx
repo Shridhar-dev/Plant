@@ -98,11 +98,11 @@ function Navbar({ isFixed = false }: { isFixed?: boolean }) {
             <NavigationMenu>
               <NavigationMenuList className="flex items-center justify-between gap-5 w-full ">
                 <Link href="/deals" legacyBehavior passHref>
-                  <NavigationMenuItem className="cursor-pointer font-semibold">
+                  <NavigationMenuItem className="hidden md:block cursor-pointer font-semibold">
                     Deals
                   </NavigationMenuItem>
                 </Link>
-                <NavigationMenuItem className="relative">
+                <NavigationMenuItem className="relative hidden md:block">
                   <Input
                     className="px-3"
                     onChange={getSearchItems}
@@ -141,7 +141,7 @@ function Navbar({ isFixed = false }: { isFixed?: boolean }) {
                           sizes="h-10 w-10"
                         />
                         <AvatarFallback>
-                          {profile?.name.split(" ")[0][0] || "User"}
+                          {profile?.name?.split(" ")[0][0] || "User"}
                         </AvatarFallback>
                       </Avatar>
                     </DropdownMenuTrigger>

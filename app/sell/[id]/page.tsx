@@ -21,9 +21,11 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 import { uploadImages } from "@/lib/uploadImages";
+import { Loader2 } from "lucide-react";
 
 export default function Sell({ params }: { params: any }) {
   const [formData, setFormData] = useState<any>({});
+  const [loading, setLoading] = useState(false)
   const { toast } = useToast();
   const router = useRouter();
 
@@ -49,6 +51,7 @@ export default function Sell({ params }: { params: any }) {
   };
 
   const getProduct = async (userId: string) => {
+    setLoading(true)
     let product = await fetch(`/api/product?id=${params.id}`);
     let objProduct = await product.json();
     if (objProduct.product.userId != userId) {
@@ -60,9 +63,11 @@ export default function Sell({ params }: { params: any }) {
         reviews: objProduct.reviews,
       });
     }
+    setLoading(false)
   };
 
   const updateItem = async () => {
+    setLoading(true)
     const user: any = await getSession();
     const links = await uploadImages(formData.images);
 
@@ -76,13 +81,14 @@ export default function Sell({ params }: { params: any }) {
       .then((response) => response.json())
       .then((data) => {
         toast({
-          title: "Product updated successfully!",
+          title: data.message,
         });
         setTimeout(() => {
           router.push("/");
         }, 1000);
       })
       .catch((error) => console.error("Error:", error));
+      setLoading(false)
   };
 
   useEffect(() => {
@@ -171,8 +177,9 @@ export default function Sell({ params }: { params: any }) {
               </div>
             </div>
             <div className="mt-5">
-              <Button className="w-1/3" onClick={updateItem}>
+              <Button disabled={loading} className="w-1/3" onClick={updateItem}>
                 Submit
+                {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
               </Button>
             </div>
           </div>

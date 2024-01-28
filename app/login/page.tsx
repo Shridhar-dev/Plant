@@ -14,7 +14,7 @@ async function LoginPage() {
     <div className="grid grid-flow-col grid-cols-3">
       <div className="flex items-center justify-center h-screen">
         <div className="w-5/6 p-10">
-          <p className="text-3xl font-semibold mb-10">Plant.co🪴</p>
+          <p className="text-3xl font-semibold mb-10">Plantsco🪴</p>
           <p className="text-4xl font-semibold mb-3">Welcome!</p>
           <p className="ml-1 text-sm">
             We source the healthiest and most beautiful plants to bring nature
@@ -32,7 +32,7 @@ async function LoginPage() {
       </div>
       <div className="bg-blue-500 h-screen col-span-2 leaf-container flex items-center justify-center">
         <div className="bg-white p-10 rounded-md w-1/2">
-          <p className="text-center text-2xl font-semibold">Plant.co 🪴</p>
+          <p className="text-center text-2xl font-semibold">Plantsco 🪴</p>
           <p className="text-center mt-5">or login using email</p>
           <EmailForm />
         </div>

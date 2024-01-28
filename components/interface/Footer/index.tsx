@@ -5,7 +5,7 @@ import Link from "next/link";
 function Footer() {
   return (
     <div>
-      <div className="w-full grid grid-cols-6 gap-20 bg-black px-28 py-20 text-white">
+      <div className="w-full grid grid-cols-6 gap-5 md:gap-20 bg-black px-10 md:px-28 py-20 text-white">
         <div className="col-span-6 md:col-span-2  rounded-full">
           <p className="text-3xl font-bold">Plantsco</p>
           <p>Plants. Thats all</p>
@@ -14,7 +14,7 @@ function Footer() {
             <FacebookIcon />
           </div>
         </div>
-        <div className="col-span-3 md:col-span-1">
+        <div className="col-span-3 md:col-span-1 my-5 md:my-0">
           <p className="text-white text-xl font-semibold">Shop</p>
           <ul className="mt-5">
             <Link href="/products/indoor">
@@ -34,7 +34,7 @@ function Footer() {
             </Link>
           </ul>
         </div>
-        <div className="col-span-3 md:col-span-1">
+        <div className="col-span-3 md:col-span-1 my-5 md:my-0">
           <p className="text-white text-xl font-semibold">Company</p>
           <ul className="mt-5">
             <li>Important Ordering Information</li>
@@ -47,7 +47,7 @@ function Footer() {
           <p className="text-white text-xl font-semibold">
             Get the latest news & offers
           </p>
-          <div className="mt-5 text-black">
+          <div className="mt-5 overflow-hidden text-black">
             <Input
               placeholder="Email Address"
               className="rounded-none h-full px-3"

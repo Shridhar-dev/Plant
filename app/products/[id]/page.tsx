@@ -7,6 +7,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { SiteConfig } from "@/app/layout";
 import { Input } from "@/components/ui/input";
 import { getSession } from "next-auth/react";
+import { Loader2 } from "lucide-react";
+import User from "@/assets/user.svg"
 
 interface ProductCardProps {
   id: number;
@@ -23,6 +25,7 @@ interface ProductCardProps {
 
 function ProductPage({ params }: { params: any }) {
   const [product, setProduct] = useState<ProductCardProps | undefined>();
+  const [loading, setLoading] = useState(false)
   const [currentProductImage, setCurrentProductImage] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
   const [review, setReview] = useState("");
@@ -58,6 +61,7 @@ function ProductPage({ params }: { params: any }) {
   };
 
   const addReview = async () => {
+    setLoading(true)
     const user: any = await getSession();
 
     await fetch("/api/add-review", {
@@ -74,8 +78,9 @@ function ProductPage({ params }: { params: any }) {
       .then((response) => response.json())
       .then((data) => {
         toast({
-          title: "Review added successfully!",
+          title: data.message,
         });
+        setLoading(false)
         getProduct();
       })
       .catch((error) => console.error("Error:", error));
@@ -154,8 +159,9 @@ function ProductPage({ params }: { params: any }) {
                   placeholder="Add your review!"
                   onChange={(e) => setReview(e.target.value)}
                 />
-                <Button variant="secondary" onClick={addReview}>
+                <Button disabled={loading} variant="secondary" onClick={addReview}>
                   Submit
+                  {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
                 </Button>
               </div>
               <div className="flex flex-col gap-5 py-2">
@@ -163,8 +169,8 @@ function ProductPage({ params }: { params: any }) {
                   <Review
                     key={id}
                     review={review.review}
-                    image={review.user_image}
-                    name={review.user_name}
+                    image={review.user_image || User.src}
+                    name={review.user_name || "User"}
                   />
                 ))}
               </div>

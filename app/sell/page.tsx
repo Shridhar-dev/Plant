@@ -21,9 +21,11 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 import { uploadImages } from "@/lib/uploadImages";
+import { Loader2 } from "lucide-react";
 
 export default function Sell() {
   const [formData, setFormData] = useState<any>({});
+  const [loading, setLoading] = useState(false)
   const { toast } = useToast();
   const router = useRouter();
 
@@ -46,6 +48,7 @@ export default function Sell() {
     }
   };
   const addItem = async () => {
+    setLoading(true)
     const user: any = await getSession();
     const links = await uploadImages(formData.images);
 
@@ -59,8 +62,9 @@ export default function Sell() {
       .then((response) => response.json())
       .then((data) => {
         toast({
-          title: "Product added successfully!",
+          title: data.message,
         });
+        setLoading(false)
         setTimeout(() => {
           router.push("/");
         }, 1000);
@@ -149,8 +153,9 @@ export default function Sell() {
               </div>
             </div>
             <div className="mt-5">
-              <Button className="w-1/3" onClick={addItem}>
+              <Button disabled={loading} className="w-1/3" onClick={addItem}>
                 Submit
+                {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
               </Button>
             </div>
           </div>

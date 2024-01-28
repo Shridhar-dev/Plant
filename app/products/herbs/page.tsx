@@ -19,10 +19,10 @@ export default function Home() {
             alt={"Header Image showcasing gadgets"}
           />
           <Navbar isFixed />
-          <p className="text-6xl absolute z-10 top-20 left-20 font-extrabold px-10 py-5  text-black">
+          <p className="text-6xl absolute z-10 top-20 left-10 md:left-20 font-extrabold md:px-10 py-5  text-black">
             Herbs
           </p>
-          <p className="text-3xl absolute z-10 top-44 left-20 px-10 py-5 text-black">
+          <p className="text-3xl absolute z-10 top-44 left-10 md:left-20 md:px-10 py-5 text-black">
             Delve into the world of natural wellness with our selection of herb
             plants
           </p>
