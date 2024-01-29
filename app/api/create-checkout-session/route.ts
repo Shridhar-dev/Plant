@@ -24,8 +24,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     },
     line_items: transformedItems,
     mode: "payment",
-    success_url: "http://localhost:3000/payment-success",
-    cancel_url: "http://localhost:3000/payment-cancel",
+    success_url: `${process.env.PRODUCTION_URL || "http://localhost:3000/"}payment-success`,
+    cancel_url: `${process.env.PRODUCTION_URL || "http://localhost:3000/"}payment-cancel`,
     metadata: {
       email,
       images: JSON.stringify(items.map((item: any) => item.image)),
